@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "grimar-182411",
+  "private_key_id": "2c324ddec86c69dbc7682bb9c89b0477c7b0dcb0",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCcgy+Lwj01v7FD\n9b7VRDsuZaKC6UI43GnEm0OlCpmIucgWdHcKxoJZ3Leb/I4RQWHkXP14c1fTRQy2\njqR6jAXfH4/uASEQwEzNL4uInxTzaZwm3HcYn5iyzpo0cjlwmmcOSJRV+M+Qvs3J\ntZnRmYfL9t4iWyS1IQkX7JpzcWQDGULwiP0EszDrdsVlj3cBPjDcOXftvuF10hO8\no/JCUIpV20PdL830njCDeWdgJmcVxKaNtgdfKAY8gq/B9Zvl+GP5tzJ8Ljj9u1h3\nMhPpZNdH9sGn58Nmtz1fY+D1Pai7MOismnpPYmJNZpddpsHCCpLqyhL/wC4k+YSK\nAQjEYtVnAgMBAAECggEAE6s40mt6ncKVWGENtmd4uH/1SFZgCB1K/XY1rgwC93fB\neXDxdN01jG18dZHrmKeK0dQN1pFIPDi1PEv4x53JLx0cTWC+8wf3nuGWu3iifWSM\nRyX1oZaM7gugvW6NYWVGBjmAyr0V+K7B1dOInRqaQjun9tFVb53TMrp9PnzFgM39\ncUAuvVkG510wwZmWlv/KPQHKuEZWHk2xLKmumjiW/dyBZ7DTsEVj4txcr/MC0K9o\ndku+JD9udGpNxTCu2S0pEaN9oTK1fUjlf5GFeOEbnc9CpZSdgjNtKBJdkAGeKzwl\nsm1FIoOUqj6g32ENNM/cVD7Ulwe9MTgUA6X49lqpQQKBgQDYULKzrxIccD1ZLhK/\nDplnM61HFEfWWXPGHJzDWTSsHpsi9SRgGFI9kAAkMFtnKPMxqPp1s0GU8ZuiG1EA\nDmXdFTLt5VTUbVnMtZMVRUV/ISf4D6YCu7ap3r2FSSs/pl4OuhlHKf5EI+wWV4zj\n7udsMvcr5scMYwQwO4OG5VDWLwKBgQC5OdWKb97dg60MRRdB8DUZVJ9YsiSpPdHS\n9dpSePx/paxSAvSSQXg01t6bc++3UxMRf8TBiihBLkhWZqj1jViEsSZre9vLwol+\nkAsBzJMVC7z+aOjCUjMzCU5HtI1OskfRqU4c5bX0NJDpRrGobaYpczf1dlYgHI6X\ntAIGxbfeSQKBgCWroANEqL3FGhnuuRsGmtZrHHD1ajE88Ll+gBpQ7ahPyCqFUGlf\nsuq/qhajSTek3P039S4MIo6iqLzJTwjYeQrQR0dAmc5IoMvSjyO0JY8nIgPEDeAJ\n+pyIiq6seFikS1r7M6299Wa+br3RT1reXvTrxzmg/eb9U1xm8NfMFZDHAoGBAKIQ\nhlTweTGcSscXlLfu8qbNMfcrN4SVQIey8WmDznnpfZLsXw2xFvo0nuWpVS80EtUW\n1BL7TSlq04Q1otPm7nJ7hcA5ySDJgAArDFZwpqidcqmvJSkRPxcCp2l6AsG+n7RE\nzMHgA4o+jCRv5HYYKnDODUJKXiUOl30I1VUTnkNxAoGBAMtxLJ5NcFg+E9l7+tKg\nR7rbEczY13/9ODxdzyAff7VQ8eP5p8BHTIYaICsYXXL81Vkis5xPCehMkZSi389r\nPhj+M84ula3VgoODGddEI3AyFO28hURYOm00O+7sfn2UatttYKZHIpcLpQwm107K\nQlh+8m8aJL9l3/7zBkW6s+01\n-----END PRIVATE KEY-----\n",
+  "client_email": "nata-mobile-app@grimar-182411.iam.gserviceaccount.com",
+  "client_id": "117903624332846114331",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/nata-mobile-app%40grimar-182411.iam.gserviceaccount.com"
+}
