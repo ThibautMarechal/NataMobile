@@ -1,26 +1,7 @@
 package be.helmo.natamobile.storage;
 
-import android.os.Build;
-import android.support.annotation.RequiresApi;
-
-import com.google.cloud.ReadChannel;
-import com.google.cloud.WriteChannel;
-import com.google.cloud.storage.*;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-import be.helmo.natamobile.tools.HELMoCredentialsProvider;
-
 public class GoogleStorage {
-
+/**
     private final Storage storage;
     private String bucketName;
 
@@ -133,5 +114,5 @@ public class GoogleStorage {
         } catch (IOException ex) {
             return false;
         }
-    }
+    }**/
 }
