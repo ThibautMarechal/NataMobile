@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">NataMobile</string>
+    <string name="username">username</string>
+    <string name="password">password</string>
+    <string name="facebookConnect">Se connecter avec facebook</string>
+    <string name="connect">se connecter</string>
+    <string name="signin">S\'inscrire</string>
+    <string name="startNewSession">Nouvelle session</string>
 </resources>

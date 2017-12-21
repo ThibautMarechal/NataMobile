@@ -1,13 +1,7 @@
 package be.helmo.natamobile.tools;
 
-import com.google.auth.oauth2.ServiceAccountCredentials;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-
-
 public class HELMoCredentialsProvider {
+    /**
     public static ServiceAccountCredentials getCredential() {
         try {
             return ServiceAccountCredentials.fromStream(
@@ -17,4 +11,5 @@ public class HELMoCredentialsProvider {
             return null;
         }
     }
+     **/
 }
