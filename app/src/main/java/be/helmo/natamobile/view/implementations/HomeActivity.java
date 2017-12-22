@@ -37,11 +37,10 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
                 final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
                 if (ActivityCompat.checkSelfPermission(self, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(self, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(self,
-                            new String[]{Manifest.permission.READ_CONTACTS},1/*???*/);
+                    //ActivityCompat.requestPermissions(self, new String[]{Manifest.permission.READ_CONTACTS},1/*???*/);
                     return;
                 }
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1,
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
                         1, new LocationListener() {
                             @Override
                             public void onLocationChanged(final Location location) {
