@@ -14,27 +14,27 @@ public class HomePresenter implements IHomePresenter {
     }
 
     @Override
-    public void startNewSession(Location location) {
+    public void startNewSession(double longitude, double latitude) {
         this.view.showView(ViewEnum.CURRENT_SESSION);
     }
 
     @Override
-    public void newObservationPicture(){
+    public void onCreate() {
 
     }
 
     @Override
-    public void newObservationVideo(){
+    public void onPause() {
 
     }
 
     @Override
-    public void newObservationAudio(){
+    public void onResume() {
 
     }
 
     @Override
-    public void newObservationNoMedia(){
+    public void onDestroy() {
 
     }
 }

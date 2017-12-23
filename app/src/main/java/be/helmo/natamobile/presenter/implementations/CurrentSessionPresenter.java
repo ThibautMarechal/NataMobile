@@ -13,4 +13,44 @@ public class CurrentSessionPresenter implements ICurrentSessionPresenter {
     public CurrentSessionPresenter(ICurrentSessionView currentSessionView) {
         this.view = currentSessionView;
     }
+
+    @Override
+    public void newObservationPicture() {
+
+    }
+
+    @Override
+    public void newObservationVideo() {
+
+    }
+
+    @Override
+    public void newObservationAudio() {
+
+    }
+
+    @Override
+    public void newObservationNoMedia() {
+
+    }
+
+    @Override
+    public void onCreate() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
 }

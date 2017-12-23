@@ -6,6 +6,6 @@ import android.provider.MediaStore;
  * Created by marechthib on 22/12/2017.
  */
 
-public interface IAudioRecorderPresenter {
+public interface IAudioRecorderPresenter extends IBasePresenter{
     void save(/*TODO AUDIO FORMAT*/MediaStore.Audio audio);
 }

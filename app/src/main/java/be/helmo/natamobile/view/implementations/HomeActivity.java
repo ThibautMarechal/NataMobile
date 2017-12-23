@@ -17,11 +17,10 @@ import be.helmo.natamobile.presenter.interfaces.IHomePresenter;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 
 public class HomeActivity extends AbstractActivity implements IHomeView {
-    private final HomeActivity self;
+    private static final int PERMISSION_REQUET_LOCATION_ACCES = 42;
     private final IHomePresenter presenter;
 
     public HomeActivity() {
-        this.self = this;
         this.presenter = new HomePresenter(this);
     }
 
@@ -34,36 +33,33 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
         startNewSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-                if (ActivityCompat.checkSelfPermission(self, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(self, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    //ActivityCompat.requestPermissions(self, new String[]{Manifest.permission.READ_CONTACTS},1/*???*/);
-                    return;
-                }
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0,
-                        1, new LocationListener() {
-                            @Override
-                            public void onLocationChanged(final Location location) {
-                                Log.d("Location", "Location change");
-                                //presenter.startNewSession(location);
-                            }
-
-                            @Override
-                            public void onStatusChanged(String s, int i, Bundle bundle) {
-                                //ignored
-                            }
-
-                            @Override
-                            public void onProviderEnabled(String s) {
-                                //ignored
-                            }
-
-                            @Override
-                            public void onProviderDisabled(String s) {
-                                //ignored
-                            }
-                        });
+                startNewSession();
             }
         });
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUET_LOCATION_ACCES: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                   startNewSession();
+                }
+            }
+        }
+    }
+
+    private void startNewSession() {
+        final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_CONTACTS},
+                    PERMISSION_REQUET_LOCATION_ACCES);
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        presenter.startNewSession(location.getLongitude(), location.getLatitude());
     }
 }

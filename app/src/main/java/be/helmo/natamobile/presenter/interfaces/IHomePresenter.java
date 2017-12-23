@@ -1,15 +1,5 @@
 package be.helmo.natamobile.presenter.interfaces;
 
-import android.location.Location;
-
-public interface IHomePresenter {
-    void startNewSession(Location location);
-
-    void newObservationPicture();
-
-    void newObservationVideo();
-
-    void newObservationAudio();
-
-    void newObservationNoMedia();
+public interface IHomePresenter extends IBasePresenter {
+    void startNewSession(double longitude, double latitude);
 }

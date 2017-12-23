@@ -14,4 +14,24 @@ public class AudioRecorderPresenter implements IAudioRecorderPresenter{
     public void save(MediaStore.Audio audio) {
 
     }
+
+    @Override
+    public void onCreate() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
 }

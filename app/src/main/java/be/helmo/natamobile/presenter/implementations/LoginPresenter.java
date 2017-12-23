@@ -21,4 +21,24 @@ public class LoginPresenter implements ILoginPresenter {
         //TODO Connect
         view.showView(ViewEnum.HOME);
     }
+
+    @Override
+    public void onCreate() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
 }

@@ -7,7 +7,7 @@ import java.util.Map;
  * Created by marechthib on 22/12/2017.
  */
 
-public interface IIdentifierPresenter {
+public interface IIdentifierPresenter extends IBasePresenter{
     Map<String,List<String>> getAttributes();
     /**
      * @param attributes

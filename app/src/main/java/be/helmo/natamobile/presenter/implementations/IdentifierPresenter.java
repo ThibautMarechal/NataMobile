@@ -24,4 +24,24 @@ public class IdentifierPresenter implements IIdentifierPresenter {
     public void validate(long idBird) {
 
     }
+
+    @Override
+    public void onCreate() {
+
+    }
+
+    @Override
+    public void onPause() {
+
+    }
+
+    @Override
+    public void onResume() {
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
 }
