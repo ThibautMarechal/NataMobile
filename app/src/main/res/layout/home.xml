@@ -34,7 +34,7 @@
             android:text="@string/startNewSession" />
 
         <ListView
-            android:id="@+id/homeSessionView"
+            android:id="@+id/homeSessionListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/startSessionButton"
@@ -44,7 +44,7 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/homeSessionView"
+            android:layout_above="@+id/homeSessionListView"
             android:layout_toEndOf="@+id/homeImageProfile">
 
             <android.support.constraint.ConstraintLayout

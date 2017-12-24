@@ -13,7 +13,6 @@ public class User
     private String fullName;
     private String picture;
     private List<Session> sessions;
-
     public long getId() {
         return id;
     }

@@ -1,6 +1,7 @@
 package be.helmo.natamobile.adapter;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.net.URL;
+
 import be.helmo.natamobile.R;
+import be.helmo.natamobile.tools.ImageViewUrlBinder;
 
 /**
  * Created by Maréchal Thibaut on 24-12-17.
@@ -39,8 +43,7 @@ public class SessionListViewAdapter<T> extends ArrayAdapter<T> {
         sesNbrObs.setText(values[position][1]);
         //Set Schedul Hour
         ImageView sesImg = rowView.findViewById(R.id.list_ses_img);
-        //TODO IMAGE FROM INTERNET
-
+        ImageViewUrlBinder.bind(sesImg, values[position][2]);
         return rowView;
     }
 }

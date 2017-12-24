@@ -5,4 +5,6 @@ public interface IHomePresenter extends IBasePresenter {
     String getUserPictureProfile();
     String getUsername();
     String getUserEmail();
+
+    String[][] getSessions();
 }

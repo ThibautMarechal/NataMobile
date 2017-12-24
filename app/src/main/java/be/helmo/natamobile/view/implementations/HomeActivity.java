@@ -2,28 +2,20 @@ package be.helmo.natamobile.view.implementations;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import be.helmo.natamobile.R;
+import be.helmo.natamobile.adapter.SessionListViewAdapter;
 import be.helmo.natamobile.presenter.implementations.HomePresenter;
 import be.helmo.natamobile.presenter.interfaces.IHomePresenter;
+import be.helmo.natamobile.tools.ImageViewUrlBinder;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 
 public class HomeActivity extends AbstractActivity implements IHomeView {
@@ -45,6 +37,11 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
                 startNewSession();
             }
         });
+        //LIST SESSION
+        SessionListViewAdapter<String[]> adapter = new SessionListViewAdapter<>(this, presenter.getSessions());
+        ListView sessionListView = findViewById(R.id.homeSessionListView);
+        sessionListView.setAdapter(adapter);
+
         //USERNAME
         TextView username = findViewById(R.id.homeUsername);
         username.setText(presenter.getUsername());
@@ -52,14 +49,9 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
         TextView email = findViewById(R.id.home_email);
         email.setText(presenter.getUserEmail());
         //PICTURE
-        ImageView pp = findViewById(R.id.homeImageProfile);
+        final ImageView pp = findViewById(R.id.homeImageProfile);
         String ppUrl = presenter.getUserPictureProfile();
-        try {
-            pp.setImageBitmap(BitmapFactory.decodeStream(new URL(ppUrl).openConnection().getInputStream()));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        ImageViewUrlBinder.bind(pp, ppUrl);
     }
     @Override
     public void onRequestPermissionsResult(int requestCode,

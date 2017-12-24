@@ -2,8 +2,10 @@ package be.helmo.natamobile.presenter.implementations;
 
 import android.location.Location;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import be.helmo.natamobile.models.Observation;
 import be.helmo.natamobile.models.Session;
 import be.helmo.natamobile.models.User;
 import be.helmo.natamobile.presenter.interfaces.IHomePresenter;
@@ -20,7 +22,21 @@ public class HomePresenter implements IHomePresenter {
         this.user = new User();
         user.setFullName("Quentin Grignet");
         user.setEmail("quentin.grignet@gmail.com");
-        user.setPicture("http://img.app-liv.jp.s3.amazonaws.com/icon/001101516/bafaa5e6cdd2233656a9a387b7d8f87a_256.png");
+        user.setPicture("http://www.thibautmarechal.be/natagora/QuentinGriGri.jpg");
+        List<Session> sessions = new ArrayList<>();
+        Session session1 = new Session();
+        session1.setName("ses1");
+        Session session2 = new Session();
+        session2.setName("ses2");
+        Session session3 = new Session();
+        session3.setName("ses3");
+        Session session4 = new Session();
+        session4.setName("ses4");
+        sessions.add(session1);
+        sessions.add(session2);
+        sessions.add(session3);
+        sessions.add(session4);
+        user.setSessions(sessions);
     }
 
     @Override
@@ -42,7 +58,8 @@ public class HomePresenter implements IHomePresenter {
     public String getUserEmail() {
         return user.getEmail();
     }
-    public String[][] getSession(){
+    @Override
+    public String[][] getSessions(){
         List<Session> sessions = user.getSessions();
         String [][] sessionsArray = new String[sessions.size()][3];
         for (int i = 0; i < sessions.size(); i++) {

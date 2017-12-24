@@ -2,6 +2,7 @@ package be.helmo.natamobile.models;
 
 import android.location.Location;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,9 @@ public class Session
 {
     private List<Observation> observations;
     private String name;
-
+    public Session(){
+        this.observations = new ArrayList<>();
+    }
     public List<Observation> getObservations() {
         return observations;
     }
