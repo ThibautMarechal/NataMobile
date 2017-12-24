@@ -54,7 +54,7 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
         newAudio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO AUDIO
+                presenter.newObservationAudio();
             }
         });
         ImageButton newNoMedia = (ImageButton) findViewById(R.id.observaitionNoMediaButton);
@@ -71,10 +71,9 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = intent.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
+            presenter.newObservationPicture();
         }else if(requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK){
             Uri videoUri = intent.getData();
         }
     }
-
-
 }

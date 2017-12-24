@@ -7,7 +7,8 @@ package be.helmo.natamobile.view.implementations;
 public enum ViewEnum {
     HOME(HomeActivity.class),
     LOG_IN(LoginActivity.class),
-    CURRENT_SESSION(CurrentSessionActivity.class);
+    CURRENT_SESSION(CurrentSessionActivity.class),
+    AUDIO_RECORDER(AudioRecorderActivity.class);
 
     private final Class activityClass;
 

@@ -1,6 +1,7 @@
 package be.helmo.natamobile.presenter.implementations;
 
 import be.helmo.natamobile.presenter.interfaces.ICurrentSessionPresenter;
+import be.helmo.natamobile.view.implementations.ViewEnum;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 
 /**
@@ -26,7 +27,7 @@ public class CurrentSessionPresenter implements ICurrentSessionPresenter {
 
     @Override
     public void newObservationAudio() {
-
+        this.view.showView(ViewEnum.AUDIO_RECORDER);
     }
 
     @Override
