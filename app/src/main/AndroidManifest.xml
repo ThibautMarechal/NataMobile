@@ -15,15 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.implementations.LoginActivity">
+        <activity android:name=".view.implementations.LoginActivity" android:screenOrientation = "portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.implementations.HomeActivity"/>
-        <activity android:name=".view.implementations.CurrentSessionActivity"/>
-        <activity android:name=".view.implementations.AudioRecorderActivity" />
+        <activity android:name=".view.implementations.HomeActivity" android:screenOrientation = "portrait"/>
+        <activity android:name=".view.implementations.CurrentSessionActivity" android:screenOrientation = "portrait"/>
+        <activity android:name=".view.implementations.AudioRecorderActivity" android:screenOrientation = "portrait"/>
     </application>
 </manifest>
