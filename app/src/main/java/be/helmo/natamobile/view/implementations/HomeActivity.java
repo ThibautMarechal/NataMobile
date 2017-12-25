@@ -75,7 +75,7 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
                     PERMISSION_REQUET_LOCATION_ACCES);
             return;
         }
-        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        presenter.startNewSession(location.getLongitude(), location.getLatitude());
+        //Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        presenter.startNewSession(0, 0/*TODO location.getLongitude(), location.getLatitude()*/);
     }
 }

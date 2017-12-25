@@ -12,4 +12,6 @@ public interface ICurrentSessionPresenter extends IBasePresenter{
     void newObservationAudio();
 
     void newObservationNoMedia();
+
+    String[][] getObservations();
 }

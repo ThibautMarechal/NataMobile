@@ -1,5 +1,9 @@
 package be.helmo.natamobile.presenter.implementations;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import be.helmo.natamobile.models.Observation;
 import be.helmo.natamobile.presenter.interfaces.ICurrentSessionPresenter;
 import be.helmo.natamobile.view.implementations.ViewEnum;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
@@ -10,9 +14,11 @@ import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 
 public class CurrentSessionPresenter implements ICurrentSessionPresenter {
     private final ICurrentSessionView view;
+    private List<Observation> observations;
 
     public CurrentSessionPresenter(ICurrentSessionView currentSessionView) {
         this.view = currentSessionView;
+        observations = new ArrayList<>();
     }
 
     @Override
@@ -33,6 +39,14 @@ public class CurrentSessionPresenter implements ICurrentSessionPresenter {
     @Override
     public void newObservationNoMedia() {
 
+    }
+
+    @Override
+    public String[][] getObservations() {
+        String [][] retrunValue = new String[observations.size()][];
+
+
+        return new String[0][];
     }
 
     @Override
