@@ -2,6 +2,7 @@ package be.helmo.natamobile.view.implementations;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
@@ -23,4 +24,8 @@ public abstract class AbstractActivity extends AppCompatActivity implements IVie
         toast.show();
     }
 
+    protected void onCreate(Bundle savedInstanceState){
+        //TODO AUTH HERE
+        super.onCreate(savedInstanceState);
+    }
 }

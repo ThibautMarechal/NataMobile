@@ -1,14 +1,10 @@
 package be.helmo.natamobile.view.implementations;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -20,10 +16,11 @@ import java.util.Date;
 
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.adapter.ObservationListViewAdapter;
-import be.helmo.natamobile.adapter.SessionListViewAdapter;
 import be.helmo.natamobile.presenter.implementations.CurrentSessionPresenter;
 import be.helmo.natamobile.presenter.interfaces.ICurrentSessionPresenter;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
+
+import static android.os.Environment.getExternalStoragePublicDirectory;
 
 /**
  * Created by marechthib on 20/12/2017.
@@ -117,29 +114,18 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            //Ignored, File bind before
+            presenter.newObservationPicture(this.filePath);
         }else if(requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK){
             Uri videoUri = intent.getData();
             if (videoUri != null) {
                 this.filePath = videoUri.getPath();
-            }else{
-                //VideoProblem
+                presenter.newObservationVideo(this.filePath);
             }
         }else if(requestCode == REQUEST_AUDIO_CAPTURE && resultCode == RESULT_OK){
             Uri audioUri = intent.getData();
             if (audioUri != null) {
                 this.filePath = audioUri.getPath();
-                MediaPlayer mediaPlayer = new MediaPlayer();
-                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                try {
-                    mediaPlayer.setDataSource(getApplicationContext(), audioUri);
-                    mediaPlayer.prepare();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                mediaPlayer.start();
-            }else{
-                //Audio problem
+                presenter.newObservationAudio(this.filePath);
             }
         }
     }
@@ -148,7 +134,7 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "PIC_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File storageDir = getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -157,5 +143,11 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
         // Save a file: path for use with ACTION_VIEW intents
         this.filePath = image.getAbsolutePath();
         return image;
+    }
+
+    @Override
+    public void updateObservationList() {
+        ListView observationListView = findViewById(R.id.currentSessionObservationList);
+        ObservationListViewAdapter adapter = (ObservationListViewAdapter) observationListView.getAdapter();
     }
 }

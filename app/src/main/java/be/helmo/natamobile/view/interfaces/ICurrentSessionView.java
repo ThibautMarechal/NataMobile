@@ -5,4 +5,5 @@ package be.helmo.natamobile.view.interfaces;
  */
 
 public interface ICurrentSessionView extends IView{
+    void updateObservationList();
 }

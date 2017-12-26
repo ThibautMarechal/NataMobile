@@ -5,11 +5,11 @@ package be.helmo.natamobile.presenter.interfaces;
  */
 
 public interface ICurrentSessionPresenter extends IBasePresenter{
-    void newObservationPicture();
+    void newObservationPicture(String filePath);
 
-    void newObservationVideo();
+    void newObservationVideo(String filePath);
 
-    void newObservationAudio();
+    void newObservationAudio(String filePath);
 
     void newObservationNoMedia();
 

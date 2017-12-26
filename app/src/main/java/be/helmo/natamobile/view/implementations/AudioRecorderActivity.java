@@ -23,6 +23,8 @@ import java.util.Date;
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.view.interfaces.IAudioRecorderView;
 
+import static android.os.Environment.getExternalStoragePublicDirectory;
+
 /**
  * Created by marechthib on 22/12/2017.
  */
@@ -36,7 +38,9 @@ public class AudioRecorderActivity extends AbstractActivity implements IAudioRec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.audio_recorder);
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO_PERMISSION);
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_DENIED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_RECORD_AUDIO_PERMISSION);
+        }
         ImageView recorderImage = findViewById(R.id.audioRecorderImage);
         recorderImage.setImageResource(R.drawable.mic_off);
         Button controlButton = findViewById(R.id.audioRecorderControlButton);
@@ -68,8 +72,7 @@ public class AudioRecorderActivity extends AbstractActivity implements IAudioRec
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
             case REQUEST_RECORD_AUDIO_PERMISSION:
-                boolean permissionToRecordAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                if (!permissionToRecordAccepted ) finish();
+                if (grantResults[0] == PackageManager.PERMISSION_DENIED) finish();
         }
     }
 
@@ -84,7 +87,7 @@ public class AudioRecorderActivity extends AbstractActivity implements IAudioRec
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS);
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String audioFileName = "AUD_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+        File storageDir = getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC);
         this.audioFile = File.createTempFile(
                 audioFileName,  /* prefix */
                 ".3gp",         /* suffix */

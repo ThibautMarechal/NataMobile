@@ -35,13 +35,13 @@ public class SessionListViewAdapter<T> extends ArrayAdapter<T> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.list_session, parent, false);
 
-        //Set Schedule Name
+
         TextView sesName = rowView.findViewById(R.id.list_ses_name);
         sesName.setText(values[position][0]);
-        //Set Schedule Trigger Description
+
         TextView sesNbrObs = rowView.findViewById(R.id.list_ses_nbr_obs);
         sesNbrObs.setText(values[position][1]);
-        //Set Schedul Hour
+
         ImageView sesImg = rowView.findViewById(R.id.list_ses_img);
         ImageViewUrlBinder.bind(sesImg, values[position][2]);
         return rowView;

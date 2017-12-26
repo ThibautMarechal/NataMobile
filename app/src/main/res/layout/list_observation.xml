@@ -10,7 +10,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/obs-img"
+            android:id="@+id/list_obs_img"
             android:layout_width="113dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -23,12 +23,12 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/obs_bird_name"
+                android:id="@+id/list_obs_bird_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
             <TextView
-                android:id="@+id/obs"
+                android:id="@+id/list_obs_number_bird"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
