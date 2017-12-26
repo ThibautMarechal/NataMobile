@@ -10,18 +10,21 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.List;
+
 import be.helmo.natamobile.R;
+import be.helmo.natamobile.models.Observation;
 
 /**
  * Created by Maréchal Thibaut on 25/12/2017.
  */
 
-public class ObservationListViewAdapter<T> extends ArrayAdapter<T> {
-    private final String[][] values;
+public class ObservationListViewAdapter extends ArrayAdapter<Observation> {
+    private final List<Observation> values;
     private final Context context;
 
-    public ObservationListViewAdapter(@NonNull Context context, String [][] values) {
-        super(context, R.layout.list_observation, (T[]) values);
+    public ObservationListViewAdapter(@NonNull Context context, List<Observation> values) {
+        super(context, R.layout.list_observation, values);
         this.context = context;
         this.values = values;
     }
@@ -34,13 +37,14 @@ public class ObservationListViewAdapter<T> extends ArrayAdapter<T> {
 
 
         TextView birdName = rowView.findViewById(R.id.list_obs_bird_name);
-        birdName.setText(values[position][0]);
+        birdName.setText(values.get(position).getBird().getName());
 
         TextView obsNumBird = rowView.findViewById(R.id.list_obs_number_bird);
-        obsNumBird.setText(values[position][1]);
+        obsNumBird.setText(values.get(position).getNumberOfBird());
 
         ImageView sesImg = rowView.findViewById(R.id.list_obs_img);
-        sesImg.setImageURI(Uri.parse(values[position][2]));
+        //TODO WHAT IF IT'S A VIDEO OR AUDIO ?
+        //sesImg.setImageURI(Uri.parse(values.get(position).getFilePath()));
         return rowView;
     }
 }

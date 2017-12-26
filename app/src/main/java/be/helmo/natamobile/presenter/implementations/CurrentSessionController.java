@@ -5,18 +5,18 @@ import java.util.List;
 
 import be.helmo.natamobile.models.Bird;
 import be.helmo.natamobile.models.Observation;
-import be.helmo.natamobile.presenter.interfaces.ICurrentSessionPresenter;
+import be.helmo.natamobile.presenter.interfaces.ICurrentSessionController;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 
 /**
  * Created by marechthib on 20/12/2017.
  */
 
-public class CurrentSessionPresenter implements ICurrentSessionPresenter {
+public class CurrentSessionController implements ICurrentSessionController {
     private final ICurrentSessionView view;
     private List<Observation> observations;
 
-    public CurrentSessionPresenter(ICurrentSessionView currentSessionView) {
+    public CurrentSessionController(ICurrentSessionView currentSessionView) {
         this.view = currentSessionView;
         observations = new ArrayList<>();
     }
@@ -62,14 +62,8 @@ public class CurrentSessionPresenter implements ICurrentSessionPresenter {
     }
 
     @Override
-    public String[][] getObservations() {
-        String [][] returnValue = new String[observations.size()][3];
-        for (int i = 0; i < observations.size(); i++) {
-            returnValue[i][0] = observations.get(i).getBird().getName();
-            returnValue[i][1] = String.valueOf(observations.get(i).getNumberOfBird());
-            returnValue[i][2] = observations.get(i).getFilePath();
-        }
-        return returnValue;
+    public List<Observation> getObservations() {
+        return observations;
     }
 
     @Override

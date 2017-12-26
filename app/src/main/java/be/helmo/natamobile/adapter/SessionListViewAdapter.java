@@ -11,20 +11,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.net.URL;
+import java.util.List;
 
 import be.helmo.natamobile.R;
+import be.helmo.natamobile.models.Session;
+import be.helmo.natamobile.service.SessionsService;
 import be.helmo.natamobile.tools.ImageViewUrlBinder;
 
 /**
  * Created by Maréchal Thibaut on 24-12-17.
  */
 
-public class SessionListViewAdapter<T> extends ArrayAdapter<T> {
-    private final String[][] values;
+public class SessionListViewAdapter extends ArrayAdapter<Session> {
+    private final List<Session> values;
     private final Context context;
 
-    public SessionListViewAdapter(@NonNull Context context, String [][] values) {
-        super(context, R.layout.list_session, (T[]) values);
+    public SessionListViewAdapter(@NonNull Context context, List<Session> values) {
+        super(context, R.layout.list_session, values);
         this.values = values;
         this.context = context;
     }
@@ -37,13 +40,13 @@ public class SessionListViewAdapter<T> extends ArrayAdapter<T> {
 
 
         TextView sesName = rowView.findViewById(R.id.list_ses_name);
-        sesName.setText(values[position][0]);
+        sesName.setText(values.get(position).getName());
 
         TextView sesNbrObs = rowView.findViewById(R.id.list_ses_nbr_obs);
-        sesNbrObs.setText(values[position][1]);
+        sesNbrObs.setText(String.valueOf(values.get(position).getObservations().size()));
 
         ImageView sesImg = rowView.findViewById(R.id.list_ses_img);
-        ImageViewUrlBinder.bind(sesImg, values[position][2]);
+        ImageViewUrlBinder.bind(sesImg, values.get(position).getOnePicture());
         return rowView;
     }
 }

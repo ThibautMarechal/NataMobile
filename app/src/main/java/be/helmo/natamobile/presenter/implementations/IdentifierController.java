@@ -3,13 +3,13 @@ package be.helmo.natamobile.presenter.implementations;
 import java.util.List;
 import java.util.Map;
 
-import be.helmo.natamobile.presenter.interfaces.IIdentifierPresenter;
+import be.helmo.natamobile.presenter.interfaces.IIdentifierController;
 
 /**
  * Created by marechthib on 22/12/2017.
  */
 
-public class IdentifierPresenter implements IIdentifierPresenter {
+public class IdentifierController implements IIdentifierController {
     @Override
     public Map<String, List<String>> getAttributes() {
         return null;

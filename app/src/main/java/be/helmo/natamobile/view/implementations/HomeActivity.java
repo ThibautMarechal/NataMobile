@@ -1,11 +1,13 @@
 package be.helmo.natamobile.view.implementations;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -13,23 +15,27 @@ import android.widget.ListView;
 import android.widget.TextView;
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.adapter.SessionListViewAdapter;
-import be.helmo.natamobile.presenter.implementations.HomePresenter;
-import be.helmo.natamobile.presenter.interfaces.IHomePresenter;
+import be.helmo.natamobile.presenter.implementations.HomeController;
+import be.helmo.natamobile.presenter.interfaces.IHomeController;
 import be.helmo.natamobile.tools.ImageViewUrlBinder;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 
 public class HomeActivity extends AbstractActivity implements IHomeView {
-    private static final int PERMISSION_REQUET_LOCATION_ACCES = 42;
-    private final IHomePresenter presenter;
-
+    private static final int REQUEST_ALL_PERMISSION = 42;
+    private final IHomeController controller;
     public HomeActivity() {
-        this.presenter = new HomePresenter(this);
+        this.controller = new HomeController(this);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home);
+        //ASK ALL PERMISSIONS
+        if(permissionsNeeded()){
+            askAllPermission();
+        }
+        //NEW SESSION
         Button startNewSessionButton = findViewById(R.id.startSessionButton);
         startNewSessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,44 +44,39 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
             }
         });
         //LIST SESSION
-        SessionListViewAdapter<String[]> adapter = new SessionListViewAdapter<>(this, presenter.getSessions());
+        SessionListViewAdapter adapter = new SessionListViewAdapter(this, controller.getSessions());
         ListView sessionListView = findViewById(R.id.homeSessionListView);
         sessionListView.setAdapter(adapter);
 
         //USERNAME
         TextView username = findViewById(R.id.homeUsername);
-        username.setText(presenter.getUsername());
+        username.setText(controller.getUsername());
         //EMAIL
         TextView email = findViewById(R.id.home_email);
-        email.setText(presenter.getUserEmail());
+        email.setText(controller.getUserEmail());
         //PICTURE
         final ImageView pp = findViewById(R.id.homeImageProfile);
-        String ppUrl = presenter.getUserPictureProfile();
+        String ppUrl = controller.getUserPictureProfile();
         ImageViewUrlBinder.bind(pp, ppUrl);
-    }
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case PERMISSION_REQUET_LOCATION_ACCES: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                   startNewSession();
-                }
-            }
-        }
+
     }
 
+    private boolean permissionsNeeded() {
+        boolean permissionGranted = true;
+        for (int i = 0; i < permissions.length && permissionGranted; i++) {
+            permissionGranted &= PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this,permissions[i]);
+        }
+        return permissionGranted;
+    }
+
+    private void askAllPermission() {
+        ActivityCompat.requestPermissions(this,
+            permissions,
+            REQUEST_ALL_PERMISSION);
+    }
     private void startNewSession() {
         final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSION_REQUET_LOCATION_ACCES);
-            return;
-        }
-        //Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        presenter.startNewSession(0, 0/*TODO location.getLongitude(), location.getLatitude()*/);
+        @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        controller.startNewSession(location.getLongitude(), location.getLatitude());
     }
 }

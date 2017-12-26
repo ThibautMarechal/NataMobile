@@ -13,11 +13,13 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.adapter.ObservationListViewAdapter;
-import be.helmo.natamobile.presenter.implementations.CurrentSessionPresenter;
-import be.helmo.natamobile.presenter.interfaces.ICurrentSessionPresenter;
+import be.helmo.natamobile.models.Observation;
+import be.helmo.natamobile.presenter.implementations.CurrentSessionController;
+import be.helmo.natamobile.presenter.interfaces.ICurrentSessionController;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 
 import static android.os.Environment.getExternalStoragePublicDirectory;
@@ -30,11 +32,11 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_VIDEO_CAPTURE = 2;
     private static final int REQUEST_AUDIO_CAPTURE = 3;
-    private final ICurrentSessionPresenter presenter;
+    private final ICurrentSessionController controller;
     private String filePath;
 
     public CurrentSessionActivity() {
-        this.presenter = new CurrentSessionPresenter(this);
+        this.controller = new CurrentSessionController(this);
     }
 
     @Override
@@ -70,11 +72,11 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
         newNoMedia.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.newObservationNoMedia();
+                controller.newObservationNoMedia();
             }
         });
         //OBSERVATION LIST
-        ObservationListViewAdapter<String[]> adapter = new ObservationListViewAdapter<>(this, presenter.getObservations());
+        ObservationListViewAdapter adapter = new ObservationListViewAdapter(this, controller.getObservations());
         ListView observationListView = findViewById(R.id.currentSessionObservationList);
         observationListView.setAdapter(adapter);
 
@@ -114,18 +116,18 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            presenter.newObservationPicture(this.filePath);
+            controller.newObservationPicture(this.filePath);
         }else if(requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK){
             Uri videoUri = intent.getData();
             if (videoUri != null) {
                 this.filePath = videoUri.getPath();
-                presenter.newObservationVideo(this.filePath);
+                controller.newObservationVideo(this.filePath);
             }
         }else if(requestCode == REQUEST_AUDIO_CAPTURE && resultCode == RESULT_OK){
             Uri audioUri = intent.getData();
             if (audioUri != null) {
                 this.filePath = audioUri.getPath();
-                presenter.newObservationAudio(this.filePath);
+                controller.newObservationAudio(this.filePath);
             }
         }
     }
