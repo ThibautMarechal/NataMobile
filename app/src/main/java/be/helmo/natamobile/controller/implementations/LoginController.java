@@ -1,6 +1,6 @@
-package be.helmo.natamobile.presenter.implementations;
+package be.helmo.natamobile.controller.implementations;
 
-import be.helmo.natamobile.presenter.interfaces.ILoginController;
+import be.helmo.natamobile.controller.interfaces.ILoginController;
 import be.helmo.natamobile.view.interfaces.ILoginView;
 import be.helmo.natamobile.view.implementations.ViewEnum;
 

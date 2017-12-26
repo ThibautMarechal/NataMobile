@@ -1,11 +1,11 @@
-package be.helmo.natamobile.presenter.implementations;
+package be.helmo.natamobile.controller.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import be.helmo.natamobile.models.Bird;
+import be.helmo.natamobile.controller.interfaces.ICurrentSessionController;
+import be.helmo.natamobile.models.FileType;
 import be.helmo.natamobile.models.Observation;
-import be.helmo.natamobile.presenter.interfaces.ICurrentSessionController;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 
 /**
@@ -24,41 +24,32 @@ public class CurrentSessionController implements ICurrentSessionController {
     @Override
     public void newObservationPicture(String filePath) {
         Observation o = new Observation();
-        Bird b = new Bird();
-        b.setName("Picture");
-        o.setBird(b);
+        o.setFileType(FileType.PICTURE);
+        o.setFilePath(filePath);
         observations.add(o);
-        this.view.updateObservationList();
+        view.identifyBird(o);
     }
 
     @Override
     public void newObservationVideo(String filePath) {
         Observation o = new Observation();
-        Bird b = new Bird();
-        b.setName("Video");
-        o.setBird(b);
+        o.setFileType(FileType.VIDEO);
+        o.setFilePath(filePath);
         observations.add(o);
-        this.view.updateObservationList();
     }
 
     @Override
     public void newObservationAudio(String filePath) {
         Observation o = new Observation();
-        Bird b = new Bird();
-        b.setName("Audio");
-        o.setBird(b);
+        o.setFileType(FileType.AUDIO);
+        o.setFilePath(filePath);
         observations.add(o);
-        this.view.updateObservationList();
     }
 
     @Override
     public void newObservationNoMedia() {
         Observation o = new Observation();
-        Bird b = new Bird();
-        b.setName("NoMedia");
-        o.setBird(b);
         observations.add(o);
-        this.view.updateObservationList();
     }
 
     @Override

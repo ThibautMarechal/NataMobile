@@ -37,14 +37,30 @@ public class ObservationListViewAdapter extends ArrayAdapter<Observation> {
 
 
         TextView birdName = rowView.findViewById(R.id.list_obs_bird_name);
-        birdName.setText(values.get(position).getBird().getName());
+        if(values.get(position).getBird() != null){
+            birdName.setText(values.get(position).getBird().getName());
+        }
+        birdName.setText(R.string.not_identified);
+
 
         TextView obsNumBird = rowView.findViewById(R.id.list_obs_number_bird);
-        obsNumBird.setText(values.get(position).getNumberOfBird());
+        obsNumBird.setText(String.valueOf(values.get(position).getNumberOfBird()));
 
         ImageView sesImg = rowView.findViewById(R.id.list_obs_img);
-        //TODO WHAT IF IT'S A VIDEO OR AUDIO ?
-        //sesImg.setImageURI(Uri.parse(values.get(position).getFilePath()));
+        switch (values.get(position).getFileType()){
+            case PICTURE:
+                sesImg.setImageURI(Uri.parse(values.get(position).getFilePath()));
+                break;
+            case AUDIO:
+                sesImg.setImageResource(R.drawable.audio);
+                break;
+            case VIDEO:
+                sesImg.setImageResource(R.drawable.video);
+                break;
+            default:
+                sesImg.setImageResource(R.drawable.no_media);
+                break;
+        }
         return rowView;
     }
 }

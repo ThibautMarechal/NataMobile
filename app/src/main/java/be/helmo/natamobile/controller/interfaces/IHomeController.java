@@ -1,4 +1,4 @@
-package be.helmo.natamobile.presenter.interfaces;
+package be.helmo.natamobile.controller.interfaces;
 
 import java.util.List;
 

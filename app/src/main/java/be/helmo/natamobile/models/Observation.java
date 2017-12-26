@@ -5,9 +5,10 @@ package be.helmo.natamobile.models;
  */
 
 public class Observation {
-    private String filePath;
+    private String filePath = "";
     private Bird bird;
-    private int numberOfBird;
+    private int numberOfBird = 1;
+    private FileType fileType= FileType.NoMedia;
 
     public int getNumberOfBird() {
         return numberOfBird;
@@ -31,5 +32,13 @@ public class Observation {
 
     public void setFilePath(String filePath) {
         this.filePath = filePath;
+    }
+
+    public FileType getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(FileType fileType) {
+        this.fileType = fileType;
     }
 }

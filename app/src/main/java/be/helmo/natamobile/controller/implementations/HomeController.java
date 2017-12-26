@@ -1,11 +1,11 @@
-package be.helmo.natamobile.presenter.implementations;
+package be.helmo.natamobile.controller.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import be.helmo.natamobile.models.Session;
 import be.helmo.natamobile.models.User;
-import be.helmo.natamobile.presenter.interfaces.IHomeController;
+import be.helmo.natamobile.controller.interfaces.IHomeController;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 import be.helmo.natamobile.view.implementations.ViewEnum;
 

@@ -9,8 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import be.helmo.natamobile.R;
-import be.helmo.natamobile.presenter.interfaces.ILoginController;
-import be.helmo.natamobile.presenter.implementations.LoginController;
+import be.helmo.natamobile.controller.interfaces.ILoginController;
+import be.helmo.natamobile.controller.implementations.LoginController;
 import be.helmo.natamobile.view.interfaces.ILoginView;
 
 public class LoginActivity extends AbstractActivity implements ILoginView {

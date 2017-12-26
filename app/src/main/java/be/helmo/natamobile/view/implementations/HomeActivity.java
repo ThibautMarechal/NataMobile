@@ -1,10 +1,7 @@
 package be.helmo.natamobile.view.implementations;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
-import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,10 +10,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.adapter.SessionListViewAdapter;
-import be.helmo.natamobile.presenter.implementations.HomeController;
-import be.helmo.natamobile.presenter.interfaces.IHomeController;
+import be.helmo.natamobile.controller.implementations.HomeController;
+import be.helmo.natamobile.controller.interfaces.IHomeController;
 import be.helmo.natamobile.tools.ImageViewUrlBinder;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 
@@ -62,11 +60,11 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
     }
 
     private boolean permissionsNeeded() {
-        boolean permissionGranted = true;
-        for (int i = 0; i < permissions.length && permissionGranted; i++) {
-            permissionGranted &= PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this,permissions[i]);
+        boolean permissionNeeded = false;
+        for (int i = 0; i < permissions.length && !permissionNeeded; i++) {
+            permissionNeeded |= PackageManager.PERMISSION_GRANTED == ContextCompat.checkSelfPermission(this,permissions[i]);
         }
-        return permissionGranted;
+        return permissionNeeded;
     }
 
     private void askAllPermission() {
@@ -74,9 +72,24 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
             permissions,
             REQUEST_ALL_PERMISSION);
     }
+
+    @SuppressLint("MissingPermission") // All permissions asked before
     private void startNewSession() {
-        final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        @SuppressLint("MissingPermission") Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        controller.startNewSession(location.getLongitude(), location.getLatitude());
+        //TODO SWAP THIS THINGS
+        //FOR EMULATOR
+        controller.startNewSession(0, 0);
+        /*
+        //FOR REAL SMARTPHONE
+        FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient.getLastLocation()
+            .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        controller.startNewSession(location.getLongitude(), location.getLatitude());
+                    }
+                }
+            });
+        */
     }
 }
