@@ -5,10 +5,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +46,8 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     private ListView observationListView;
     private String filePath;
 
+    private StorageReference mStorageRef;
+
     public CurrentSessionActivity() {
         this.controller = new CurrentSessionController(this);
     }
@@ -46,6 +55,9 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mStorageRef = FirebaseStorage.getInstance("gs://natagora-grimar").getReference();
+
+
         setContentView(R.layout.session_current);
         //PICTURE
         newPictureButton = findViewById(R.id.observaitionPictureButton);
@@ -71,7 +83,7 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
                 takeAudio();
             }
         });
-        //NOMEDIA
+        //NO_MEDIA
         newNoMediaButton = findViewById(R.id.observaitionNoMediaButton);
         newNoMediaButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,17 +136,25 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             controller.newObservationPicture(this.filePath);
+
+//            upload(photoUri, "user-ID/session-ID/photo-" + new Date().getTime() + ".jpg");
         }else if(requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK){
             Uri videoUri = intent.getData();
             if (videoUri != null) {
                 this.filePath = videoUri.toString();
                 controller.newObservationVideo(this.filePath);
+
+                //FORMAT "user-" + ID + "/session-" + ID or TIMESTAMP + "/" + media_type + "-" + TIMESTAMP + "." + EXTENSION
+                upload(videoUri, "user-ID/session-ID/video-" + new Date().getTime() + ".mp4");
+
             }
         }else if(requestCode == REQUEST_AUDIO_CAPTURE && resultCode == RESULT_OK){
             Uri audioUri = intent.getData();
             if (audioUri != null) {
                 this.filePath = audioUri.toString();
                 controller.newObservationAudio(this.filePath);
+
+                upload(audioUri, "user-ID/session-ID/audio-" + new Date().getTime() + ".3gp");
             }
         }else if(requestCode == REQUEST_IDENTIFY && resultCode == RESULT_OK){
             //TODO SOMETHING
@@ -153,6 +173,29 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
         );
         // Save a file: path for use with ACTION_VIEW intents
         return image;
+    }
+
+    private void upload(Uri uri, String online) {
+        StorageReference fileRef = mStorageRef.child(online);
+        fileRef.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+//                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        displayToast("Upload done");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                        displayToast("Upload failure");
+                        exception.printStackTrace();
+                        System.err.println(exception.getMessage());
+                    }
+                });
     }
 
     @Override

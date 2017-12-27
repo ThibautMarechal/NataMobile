@@ -1,5 +1,8 @@
 package be.helmo.natamobile.controller.implementations;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +18,8 @@ import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 public class CurrentSessionController implements ICurrentSessionController {
     private final ICurrentSessionView view;
     private List<Observation> observations;
+
+    private StorageReference mStorageRef;
 
     public CurrentSessionController(ICurrentSessionView currentSessionView) {
         this.view = currentSessionView;
@@ -62,7 +67,7 @@ public class CurrentSessionController implements ICurrentSessionController {
 
     @Override
     public void onCreate() {
-
+        mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
     @Override

@@ -1,5 +1,8 @@
 package be.helmo.natamobile.controller.implementations;
 
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +15,8 @@ import be.helmo.natamobile.view.implementations.ViewEnum;
 public class HomeController implements IHomeController {
     private final IHomeView view;
     private final User user;
+
+    private StorageReference mStorageRef;
 
     public HomeController(IHomeView homeView) {
         this.view = homeView;
@@ -62,7 +67,7 @@ public class HomeController implements IHomeController {
 
     @Override
     public void onCreate() {
-
+        mStorageRef = FirebaseStorage.getInstance().getReference();
     }
 
     @Override

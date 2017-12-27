@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "485595131652",
+    "firebase_url": "https://grimar-182411.firebaseio.com",
+    "project_id": "grimar-182411",
+    "storage_bucket": "grimar-182411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485595131652:android:b753361ed302d86e",
+        "android_client_info": {
+          "package_name": "be.helmo.natamobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485595131652-hjr0h3kter1kl4annnn97jb74gn4apo5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "be.helmo.natamobile",
+            "certificate_hash": "f544add10039334482e3832708983764dee0e77c"
+          }
+        },
+        {
+          "client_id": "485595131652-mmrcr02tc372vdtgc1d8sei2s8ucnhc9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBW_RGbbhLu2VLEXBm3dQ6pEG2IQfFZv_U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485595131652-mmrcr02tc372vdtgc1d8sei2s8ucnhc9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
