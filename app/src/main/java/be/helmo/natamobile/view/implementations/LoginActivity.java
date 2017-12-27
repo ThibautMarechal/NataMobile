@@ -9,14 +9,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import be.helmo.natamobile.R;
-import be.helmo.natamobile.presenter.interfaces.ILoginPresenter;
-import be.helmo.natamobile.presenter.implementations.LoginPresenter;
+import be.helmo.natamobile.controller.interfaces.ILoginController;
+import be.helmo.natamobile.controller.implementations.LoginController;
 import be.helmo.natamobile.view.interfaces.ILoginView;
 
 public class LoginActivity extends AbstractActivity implements ILoginView {
-    ILoginPresenter presenter;
+    ILoginController controller;
     public LoginActivity(){
-        this.presenter = new LoginPresenter(this);
+        this.controller = new LoginController(this);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class LoginActivity extends AbstractActivity implements ILoginView {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.connect();
+                controller.connect();
             }
         });
         Button signinButton = (Button)findViewById(R.id.signIn);

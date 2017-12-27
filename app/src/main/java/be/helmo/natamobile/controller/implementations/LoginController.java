@@ -1,6 +1,6 @@
-package be.helmo.natamobile.presenter.implementations;
+package be.helmo.natamobile.controller.implementations;
 
-import be.helmo.natamobile.presenter.interfaces.ILoginPresenter;
+import be.helmo.natamobile.controller.interfaces.ILoginController;
 import be.helmo.natamobile.view.interfaces.ILoginView;
 import be.helmo.natamobile.view.implementations.ViewEnum;
 
@@ -8,9 +8,9 @@ import be.helmo.natamobile.view.implementations.ViewEnum;
  * Created by marechthib on 19/12/2017.
  */
 
-public class LoginPresenter implements ILoginPresenter {
+public class LoginController implements ILoginController {
     private ILoginView view;
-    public LoginPresenter(ILoginView loginview) {
+    public LoginController(ILoginView loginview) {
         this.view = loginview;
     }
 

@@ -1,12 +1,22 @@
 package be.helmo.natamobile.storage;
-/**
-import com.google.cloud.ReadChannel;
+/*
 import com.google.cloud.WriteChannel;
 import com.google.cloud.storage.*;
-**/
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import be.helmo.natamobile.tools.HELMoCredentialsProvider;
+*/
 
 public class GoogleStorage {
-/**
+/*
     private final Storage storage;
     private String bucketName;
 
@@ -104,46 +114,7 @@ public class GoogleStorage {
         return path.startsWith("\\");
     }
 
-    public byte[] getMedia(String onlinePath) throws IOException {
-        Blob blob = storage.get(BlobId.of(bucketName, onlinePath.toString().replace("\\", "/")));
-        if (blob == null) {
-            System.out.println("No such object");
-            return new byte[0];
-        }
-
-        byte[] rtn;
-
-        if (blob.getSize() < 1_000_000) {
-            // Blob is small read all its content in one request
-            return blob.getContent();
-        } else {
-            // When Blob size is big or unknown use the blob's channel reader.
-            try (ReadChannel reader = blob.reader()) {
-                List<Byte> content = new LinkedList<>();
-                ByteBuffer bytes = ByteBuffer.allocate(64 * 1024);
-                while (reader.read(bytes) > 0) {
-                    bytes.flip();
-                    for (byte tmp : bytes.array())
-                        content.add(tmp);
-                    bytes.clear();
-                }
-                rtn = new byte[content.size()];
-                for (int i = 0; i < rtn.length; i++)
-                    rtn[i] = content.get(i);
-            }
-        }
-        return rtn;
-    }
-
     public boolean deleteMedia(String onlinePath) {
         return storage.delete(BlobId.of(bucketName, onlinePath.toString()));
-    }
-
-    public boolean exist(String onlinePath) {
-        try {
-            return getMedia(onlinePath).length == 0;
-        } catch (IOException ex) {
-            return false;
-        }
-    }**/
+    }*/
 }
