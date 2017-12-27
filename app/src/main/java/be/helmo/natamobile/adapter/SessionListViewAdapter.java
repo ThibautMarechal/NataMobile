@@ -1,7 +1,6 @@
 package be.helmo.natamobile.adapter;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.net.URL;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.models.Session;
-import be.helmo.natamobile.service.SessionsService;
-import be.helmo.natamobile.tools.ImageViewUrlBinder;
 
 /**
  * Created by Maréchal Thibaut on 24-12-17.
@@ -46,7 +44,7 @@ public class SessionListViewAdapter extends ArrayAdapter<Session> {
         sesNbrObs.setText(String.valueOf(values.get(position).getObservations().size()));
 
         ImageView sesImg = rowView.findViewById(R.id.list_ses_img);
-        ImageViewUrlBinder.bind(sesImg, values.get(position).getOnePicture());
+        Picasso.with(sesImg.getContext()).load(values.get(position).getOnePicture()).centerCrop().fit().into(sesImg);
         return rowView;
     }
 }

@@ -14,4 +14,5 @@
     <string name="identify">Identifier</string>
     <string name="save_observation">Enregistrer l\'observation</string>
     <string name="search" >Rechercher</string>
+    <string name="BirdResult">Résultat de recherche</string>
 </resources>

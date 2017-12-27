@@ -12,7 +12,7 @@ public class Bird {
     private String name;
     private String description;
     private Map<String, List<String>> attributes;
-
+    private String picturePath;
     public long getId() {
         return id;
     }
@@ -43,5 +43,13 @@ public class Bird {
 
     public void setAttributes(Map<String, List<String>> attributes) {
         this.attributes = attributes;
+    }
+
+    public String getPicturePath() {
+        return picturePath;
+    }
+
+    public void setPicturePath(String picturePath) {
+        this.picturePath = picturePath;
     }
 }

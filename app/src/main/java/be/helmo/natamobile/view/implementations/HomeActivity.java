@@ -11,11 +11,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.adapter.SessionListViewAdapter;
 import be.helmo.natamobile.controller.implementations.HomeController;
 import be.helmo.natamobile.controller.interfaces.IHomeController;
-import be.helmo.natamobile.tools.ImageViewUrlBinder;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 
 public class HomeActivity extends AbstractActivity implements IHomeView {
@@ -53,9 +54,9 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
         TextView email = findViewById(R.id.home_email);
         email.setText(controller.getUserEmail());
         //PICTURE
-        final ImageView pp = findViewById(R.id.homeImageProfile);
+        ImageView pp = findViewById(R.id.homeImageProfile);
         String ppUrl = controller.getUserPictureProfile();
-        ImageViewUrlBinder.bind(pp, ppUrl);
+        Picasso.with(pp.getContext()).load(ppUrl).centerCrop().fit().into(pp);
 
     }
 

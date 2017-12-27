@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import be.helmo.natamobile.R;
@@ -49,7 +51,7 @@ public class ObservationListViewAdapter extends ArrayAdapter<Observation> {
         ImageView sesImg = rowView.findViewById(R.id.list_obs_img);
         switch (values.get(position).getFileType()){
             case PICTURE:
-                sesImg.setImageURI(Uri.parse(values.get(position).getFilePath()));
+                Picasso.with(sesImg.getContext()).load(Uri.parse(values.get(position).getFilePath())).centerCrop().fit().into(sesImg);
                 break;
             case AUDIO:
                 sesImg.setImageResource(R.drawable.audio);

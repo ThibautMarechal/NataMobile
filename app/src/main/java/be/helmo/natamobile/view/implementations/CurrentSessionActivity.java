@@ -145,7 +145,7 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
                 controller.newObservationVideo(this.filePath);
 
                 //FORMAT "user-" + ID + "/session-" + ID or TIMESTAMP + "/" + media_type + "-" + TIMESTAMP + "." + EXTENSION
-                upload(videoUri, "user-ID/session-ID/video-" + new Date().getTime() + ".mp4");
+                //upload(videoUri, "user-ID/session-ID/video-" + new Date().getTime() + ".mp4");
 
             }
         }else if(requestCode == REQUEST_AUDIO_CAPTURE && resultCode == RESULT_OK){
@@ -154,7 +154,7 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
                 this.filePath = audioUri.toString();
                 controller.newObservationAudio(this.filePath);
 
-                upload(audioUri, "user-ID/session-ID/audio-" + new Date().getTime() + ".3gp");
+                //upload(audioUri, "user-ID/session-ID/audio-" + new Date().getTime() + ".acc");
             }
         }else if(requestCode == REQUEST_IDENTIFY && resultCode == RESULT_OK){
             //TODO SOMETHING

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "485595131652-6sfq1k34ap54u4k53fhvbrgq6lmf56bk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "be.helmo.natamobile",
+            "certificate_hash": "4c362dc3adf14ce8d1739f1de274beaf676325f2"
+          }
+        },
+        {
           "client_id": "485595131652-hjr0h3kter1kl4annnn97jb74gn4apo5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.squareup.picasso.Picasso;
+
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.controller.implementations.IdentifyController;
 import be.helmo.natamobile.controller.interfaces.IIdentifyController;
@@ -39,7 +41,7 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView{
         FileType fileType = (FileType) extras.get("fileType");
         switch (fileType){
             case PICTURE:
-                birdImage.setImageURI(Uri.parse(extras.getString("filePath")));
+                Picasso.with(birdImage.getContext()).load(Uri.parse(extras.getString("filePath"))).centerCrop().fit().into(birdImage);
                 break;
             case AUDIO:
                 birdImage.setImageResource(R.drawable.audio);
@@ -57,13 +59,14 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView{
         birdsSpinner.setAdapter(adapter);
 
         numberBirdEditText = findViewById(R.id.numberBirdTextField);
+        numberBirdEditText.setText("1");
         saveButton = findViewById(R.id.identify_save_obs);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
                 returnIntent.putExtra("birdName", birdsSpinner.getSelectedItem().toString());
-                returnIntent.putExtra("birdNumber", Integer.parseInt(numberBirdEditText.toString()));
+                returnIntent.putExtra("birdNumber", Integer.parseInt(numberBirdEditText.getText().toString()));
                 setResult(RESULT_OK, returnIntent);
                 finish();
             }
