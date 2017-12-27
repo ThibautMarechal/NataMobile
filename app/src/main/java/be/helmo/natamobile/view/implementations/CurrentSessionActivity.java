@@ -136,19 +136,25 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             controller.newObservationPicture(this.filePath);
+
+//            upload(photoUri, "user-ID/session-ID/photo-" + new Date().getTime() + ".jpg");
         }else if(requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK){
             Uri videoUri = intent.getData();
             if (videoUri != null) {
                 this.filePath = videoUri.toString();
                 controller.newObservationVideo(this.filePath);
 
-                upload(videoUri, "test/video" + new Date().getTime() + ".mp4");
+                //FORMAT "user-" + ID + "/session-" + ID or TIMESTAMP + "/" + media_type + "-" + TIMESTAMP + "." + EXTENSION
+                upload(videoUri, "user-ID/session-ID/video-" + new Date().getTime() + ".mp4");
+
             }
         }else if(requestCode == REQUEST_AUDIO_CAPTURE && resultCode == RESULT_OK){
             Uri audioUri = intent.getData();
             if (audioUri != null) {
                 this.filePath = audioUri.toString();
                 controller.newObservationAudio(this.filePath);
+
+                upload(audioUri, "user-ID/session-ID/audio-" + new Date().getTime() + ".3gp");
             }
         }else if(requestCode == REQUEST_IDENTIFY && resultCode == RESULT_OK){
             //TODO SOMETHING
