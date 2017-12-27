@@ -36,6 +36,7 @@ public class CurrentSessionController implements ICurrentSessionController {
         o.setFileType(FileType.VIDEO);
         o.setFilePath(filePath);
         observations.add(o);
+        view.identifyBird(o);
     }
 
     @Override
@@ -44,12 +45,14 @@ public class CurrentSessionController implements ICurrentSessionController {
         o.setFileType(FileType.AUDIO);
         o.setFilePath(filePath);
         observations.add(o);
+        view.identifyBird(o);
     }
 
     @Override
     public void newObservationNoMedia() {
         Observation o = new Observation();
         observations.add(o);
+        view.identifyBird(o);
     }
 
     @Override

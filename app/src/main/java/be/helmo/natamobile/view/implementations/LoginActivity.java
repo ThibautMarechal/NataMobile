@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import be.helmo.natamobile.R;
-import be.helmo.natamobile.controller.interfaces.ILoginController;
 import be.helmo.natamobile.controller.implementations.LoginController;
+import be.helmo.natamobile.controller.interfaces.ILoginController;
 import be.helmo.natamobile.view.interfaces.ILoginView;
 
 public class LoginActivity extends AbstractActivity implements ILoginView {
@@ -41,7 +40,7 @@ public class LoginActivity extends AbstractActivity implements ILoginView {
         facebookButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "Facebook connection not implemented now", Toast.LENGTH_LONG).show();
+                displayToast("Facebook connection not implemented now");
             }
         });
     }

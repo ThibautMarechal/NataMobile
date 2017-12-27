@@ -21,6 +21,7 @@ import be.helmo.natamobile.view.interfaces.IIdentifyView;
  */
 
 public class IdentifyActivity extends AbstractActivity implements IIdentifyView{
+    private static final int REQUEST_HELPER = 1;
     private Spinner birdsSpinner;
     private EditText numberBirdEditText;
     private Button saveButton;
@@ -33,11 +34,12 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.identify);
 
+        Bundle extras = getIntent().getExtras();
         birdImage = findViewById(R.id.identifyBirdImage);
-        FileType fileType = (FileType) savedInstanceState.get("fileType");
+        FileType fileType = (FileType) extras.get("fileType");
         switch (fileType){
             case PICTURE:
-                birdImage.setImageURI(Uri.parse(savedInstanceState.getString("filePath")));
+                birdImage.setImageURI(Uri.parse(extras.getString("filePath")));
                 break;
             case AUDIO:
                 birdImage.setImageResource(R.drawable.audio);
@@ -60,7 +62,7 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView{
             @Override
             public void onClick(View v) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("birdName", ""/*Spinner value*/);
+                returnIntent.putExtra("birdName", birdsSpinner.getSelectedItem().toString());
                 returnIntent.putExtra("birdNumber", Integer.parseInt(numberBirdEditText.toString()));
                 setResult(RESULT_OK, returnIntent);
                 finish();
@@ -70,8 +72,13 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView{
         identifyHelperButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                askHelper();
             }
         });
+    }
+
+    private void askHelper() {
+        Intent identifyHelperIntent = new Intent(this, IdentifyHelperActivity.class);
+        startActivityForResult(identifyHelperIntent,REQUEST_HELPER);
     }
 }

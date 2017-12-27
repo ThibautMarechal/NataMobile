@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">NataMobile</string>
-    <string name="username">email</string>
-    <string name="password">password</string>
+    <string name="username">Email</string>
+    <string name="password">Mot de passe</string>
     <string name="facebookConnect">Se connecter avec facebook</string>
     <string name="connect">se connecter</string>
     <string name="signin">S\'inscrire</string>
     <string name="startNewSession">Nouvelle session</string>
-    <string name="start_recording" >Start recording</string>
-    <string name="stop_recording">Stop recording</string>
+    <string name="start_recording" >Commencer l\'enregistrement</string>
+    <string name="stop_recording">Arrêter l\'enregistrement</string>
     <string name="not_identified">Non identifié</string>
     <string name="race">Race</string>
     <string name="number_of_bird">Nombre d\'oiseau</string>
-    <string name="identify">identifier</string>
+    <string name="identify">Identifier</string>
     <string name="save_observation">Enregistrer l\'observation</string>
+    <string name="search" >Rechercher</string>
 </resources>
