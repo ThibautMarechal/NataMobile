@@ -5,10 +5,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ListView;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +46,8 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     private ListView observationListView;
     private String filePath;
 
+    private StorageReference mStorageRef;
+
     public CurrentSessionActivity() {
         this.controller = new CurrentSessionController(this);
     }
@@ -46,6 +55,9 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mStorageRef = FirebaseStorage.getInstance("gs://natagora-grimar").getReference();
+
+
         setContentView(R.layout.session_current);
         //PICTURE
         newPictureButton = findViewById(R.id.observaitionPictureButton);
@@ -71,7 +83,7 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
                 takeAudio();
             }
         });
-        //NOMEDIA
+        //NO_MEDIA
         newNoMediaButton = findViewById(R.id.observaitionNoMediaButton);
         newNoMediaButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,6 +141,8 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
             if (videoUri != null) {
                 this.filePath = videoUri.toString();
                 controller.newObservationVideo(this.filePath);
+
+                upload(videoUri, "test/video" + new Date().getTime() + ".mp4");
             }
         }else if(requestCode == REQUEST_AUDIO_CAPTURE && resultCode == RESULT_OK){
             Uri audioUri = intent.getData();
@@ -153,6 +167,29 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
         );
         // Save a file: path for use with ACTION_VIEW intents
         return image;
+    }
+
+    private void upload(Uri uri, String online) {
+        StorageReference fileRef = mStorageRef.child(online);
+        fileRef.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        // Get a URL to the uploaded content
+//                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                        displayToast("Upload done");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Handle unsuccessful uploads
+                        // ...
+                        displayToast("Upload failure");
+                        exception.printStackTrace();
+                        System.err.println(exception.getMessage());
+                    }
+                });
     }
 
     @Override
