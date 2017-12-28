@@ -1,45 +1,31 @@
 package be.helmo.natamobile.controller.implementations;
 
+
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import be.helmo.natamobile.controller.interfaces.IHomeController;
 import be.helmo.natamobile.models.Session;
 import be.helmo.natamobile.models.User;
-import be.helmo.natamobile.controller.interfaces.IHomeController;
-import be.helmo.natamobile.restAdapter.SessionAdapter;
-import be.helmo.natamobile.view.interfaces.IHomeView;
+import be.helmo.natamobile.restAdapter.RestCallBack;
+import be.helmo.natamobile.restAdapter.UserAdapter;
 import be.helmo.natamobile.view.implementations.ViewEnum;
+import be.helmo.natamobile.view.interfaces.IHomeView;
+import okhttp3.Credentials;
 
-public class HomeController implements IHomeController {
+public class HomeController implements IHomeController, RestCallBack<User> {
     private final IHomeView view;
-    private final User user;
+    private User user;
 
     private StorageReference mStorageRef;
 
     public HomeController(IHomeView homeView) {
         this.view = homeView;
-        //TODO GET USER FROM REST
-        this.user = new User();
-        user.setFullName("Quentin Grignet");
-        user.setEmail("quentin.grignet@gmail.com");
-        user.setPicture("http://www.thibautmarechal.be/natagora/QuentinGriGri.jpg");
-        List<Session> sessions = new ArrayList<>();
-        Session session1 = new Session();
-        session1.setName("ses1");
-        Session session2 = new Session();
-        session2.setName("ses2");
-        Session session3 = new Session();
-        session3.setName("ses3");
-        Session session4 = new Session();
-        session4.setName("ses4");
-        sessions.add(session1);
-        sessions.add(session2);
-        sessions.add(session3);
-        sessions.add(session4);
-        user.setSessions(sessions);
+        UserAdapter userAda = new UserAdapter(this);
+        String cre = Credentials.basic("admin@nat.be", "adminadmin");
+        userAda.execute(cre);
     }
 
     @Override
@@ -84,5 +70,11 @@ public class HomeController implements IHomeController {
     @Override
     public void onDestroy() {
 
+    }
+
+    @Override
+    public void onRestCallComplete(User user) {
+        this.user = user;
+        view.updateUserUI();
     }
 }

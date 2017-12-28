@@ -63,9 +63,11 @@ public class LoginActivity extends AbstractActivity implements ILoginView {
         if(!password.isEmpty() && !email.isEmpty()){
             //TODO AUTH HERE
             showView(ViewEnum.HOME);
+            displayToast("CONNECTED");
         }else{
             //TEMPORAIRE
             showView(ViewEnum.HOME);
+            displayToast("CONNECTED");
         }
     }
 

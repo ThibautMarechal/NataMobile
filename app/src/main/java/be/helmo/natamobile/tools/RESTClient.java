@@ -1,7 +1,6 @@
 package be.helmo.natamobile.tools;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +29,6 @@ public class RESTClient {
         } else {
             rtn = client;
         }
-
         return rtn;
     }
 
@@ -43,10 +41,8 @@ public class RESTClient {
                     @Override
                     public okhttp3.Response intercept(Chain chain) throws IOException {
                         Request originalRequest = chain.request();
-
                         Request.Builder builder = originalRequest.newBuilder().header("Authorization",
                                 Credentials.basic("system@nat.be", "rootroot"));
-
                         Request newRequest = builder.build();
                         return chain.proceed(newRequest);
                     }

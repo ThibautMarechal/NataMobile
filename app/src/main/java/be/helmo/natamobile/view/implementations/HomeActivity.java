@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
 
 import be.helmo.natamobile.R;
@@ -21,44 +20,16 @@ import be.helmo.natamobile.adapter.SessionListViewAdapter;
 import be.helmo.natamobile.controller.implementations.HomeController;
 import be.helmo.natamobile.controller.interfaces.IHomeController;
 import be.helmo.natamobile.models.Session;
-import be.helmo.natamobile.reception.RSession;
-import be.helmo.natamobile.restAdapter.SessionAdapter;
 import be.helmo.natamobile.view.interfaces.IHomeView;
-import retrofit2.Call;
 
 public class HomeActivity extends AbstractActivity implements IHomeView {
 	private static final int REQUEST_ALL_PERMISSION = 42;
 	private final IHomeController controller;
 
-	private SessionAdapter sesAda;
-
 	List<Session> ses;
 
 	public HomeActivity() {
 		this.controller = new HomeController(this);
-		sesAda = new SessionAdapter();
-
-//		Thread th = new Thread() {
-//			public void run() {
-//				try {
-//					ses = sesAda.getFor(9L);
-//				} catch (IOException ex) {
-//					ex.printStackTrace();
-//				}
-//			}
-//		};
-//		th.run();
-//		try {
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-
-		sesAda.execute(9L);
-//		ses = (List<Session>) sesAda.execute(9L);
-		System.out.println("Hello");
-
-
 	}
 
 	@Override
@@ -77,11 +48,9 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
 				startNewSession();
 			}
 		});
-		//LIST SESSION
-		SessionListViewAdapter adapter = new SessionListViewAdapter(this, controller.getSessions());
-		ListView sessionListView = findViewById(R.id.homeSessionListView);
-		sessionListView.setAdapter(adapter);
-
+	}
+	@Override
+	public void updateUserUI() {
 		//USERNAME
 		TextView username = findViewById(R.id.homeUsername);
 		username.setText(controller.getUsername());
@@ -92,8 +61,13 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
 		ImageView pp = findViewById(R.id.homeImageProfile);
 		String ppUrl = controller.getUserPictureProfile();
 		Picasso.with(pp.getContext()).load(ppUrl).centerCrop().fit().into(pp);
-
-
+	}
+	@Override
+	public void updateSessionList(){
+		//LIST SESSION
+		SessionListViewAdapter adapter = new SessionListViewAdapter(this, controller.getSessions());
+		ListView sessionListView = findViewById(R.id.homeSessionListView);
+		sessionListView.setAdapter(adapter);
 	}
 
 	private boolean permissionsNeeded() {
