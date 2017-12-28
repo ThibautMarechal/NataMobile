@@ -15,7 +15,6 @@ import be.helmo.natamobile.models.Bird;
  */
 
 public class BirdRecicleViewAdapter extends RecyclerView.Adapter<BirdViewHolder> {
-
     List<Bird> list;
 
     //ajouter un constructeur prenant en entrée une liste
@@ -26,7 +25,7 @@ public class BirdRecicleViewAdapter extends RecyclerView.Adapter<BirdViewHolder>
     //cette fonction permet de créer les viewHolder
     //et par la même indiquer la vue à inflater (à partir des layout xml)
     @Override
-    public BirdViewHolder onCreateViewHolder(ViewGroup viewGroup, int itemType) {
+    public BirdViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell_cards,viewGroup,false);
         return new BirdViewHolder(view);
     }
@@ -42,5 +41,4 @@ public class BirdRecicleViewAdapter extends RecyclerView.Adapter<BirdViewHolder>
     public int getItemCount() {
         return list.size();
     }
-
 }

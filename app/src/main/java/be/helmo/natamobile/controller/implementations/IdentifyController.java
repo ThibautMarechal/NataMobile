@@ -13,6 +13,7 @@ import be.helmo.natamobile.models.Bird;
 public class IdentifyController implements IIdentifyController {
     private List<Bird> birds;
     public IdentifyController(){
+        //TODO CALL REST
         birds = new ArrayList<>();
         Bird b = new Bird();
         b.setName("Oiseau1");
