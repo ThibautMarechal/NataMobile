@@ -10,8 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.squareup.picasso.Picasso;
-
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.controller.implementations.IdentifyController;
 import be.helmo.natamobile.controller.interfaces.IIdentifyController;
@@ -41,7 +39,7 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView{
         FileType fileType = (FileType) extras.get("fileType");
         switch (fileType){
             case PICTURE:
-                Picasso.with(birdImage.getContext()).load(Uri.parse(extras.getString("filePath"))).centerCrop().fit().into(birdImage);
+                birdImage.setImageURI(Uri.parse(extras.getString("filePath")));
                 break;
             case AUDIO:
                 birdImage.setImageResource(R.drawable.audio);

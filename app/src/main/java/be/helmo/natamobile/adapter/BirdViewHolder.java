@@ -23,8 +23,6 @@ public class BirdViewHolder extends RecyclerView.ViewHolder{
     public BirdViewHolder(View itemView) {
         super(itemView);
 
-        //c'est ici que l'on fait nos findView
-
         textViewView = itemView.findViewById(R.id.text);
         imageView = itemView.findViewById(R.id.image);
     }

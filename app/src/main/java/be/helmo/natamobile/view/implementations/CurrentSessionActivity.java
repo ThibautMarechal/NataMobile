@@ -135,14 +135,12 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            controller.newObservationPicture(this.filePath);
 
 //            upload(photoUri, "user-ID/session-ID/photo-" + new Date().getTime() + ".jpg");
         }else if(requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK){
             Uri videoUri = intent.getData();
             if (videoUri != null) {
                 this.filePath = videoUri.toString();
-                controller.newObservationVideo(this.filePath);
 
                 //FORMAT "user-" + ID + "/session-" + ID or TIMESTAMP + "/" + media_type + "-" + TIMESTAMP + "." + EXTENSION
                 //upload(videoUri, "user-ID/session-ID/video-" + new Date().getTime() + ".mp4");
@@ -152,12 +150,14 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
             Uri audioUri = intent.getData();
             if (audioUri != null) {
                 this.filePath = audioUri.toString();
-                controller.newObservationAudio(this.filePath);
 
                 //upload(audioUri, "user-ID/session-ID/audio-" + new Date().getTime() + ".acc");
             }
         }else if(requestCode == REQUEST_IDENTIFY && resultCode == RESULT_OK){
-            //TODO SOMETHING
+            controller.newObservationPicture(this.filePath);
+            controller.newObservationVideo(this.filePath);
+            controller.newObservationAudio(this.filePath);
+            controller.newObservationNoMedia();
         }
     }
 
