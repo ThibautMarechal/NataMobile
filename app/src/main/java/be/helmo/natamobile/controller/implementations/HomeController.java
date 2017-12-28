@@ -9,6 +9,7 @@ import java.util.List;
 import be.helmo.natamobile.models.Session;
 import be.helmo.natamobile.models.User;
 import be.helmo.natamobile.controller.interfaces.IHomeController;
+import be.helmo.natamobile.restAdapter.SessionAdapter;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 import be.helmo.natamobile.view.implementations.ViewEnum;
 

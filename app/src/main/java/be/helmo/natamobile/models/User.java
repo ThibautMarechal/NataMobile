@@ -6,20 +6,14 @@ import java.util.List;
  * Created by Maréchal Thibaut on 22-12-17.
  */
 
-public class User
-{
-    private long id;
+public class User extends IdentifiedModel {
     private String email;
     private String fullName;
     private String picture;
     private List<Session> sessions;
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
+    private boolean isAdmin;
+    private String password;
+    private List<Role> roles;
 
     public String getEmail() {
         return email;
@@ -51,5 +45,29 @@ public class User
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }
