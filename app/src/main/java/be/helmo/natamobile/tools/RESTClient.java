@@ -34,19 +34,19 @@ public class RESTClient {
 
     private static OkHttpClient getOkHttpClient() {
         return new OkHttpClient().newBuilder()
-                .writeTimeout(90, TimeUnit.SECONDS)
-                .connectTimeout(90, TimeUnit.SECONDS)
-                .readTimeout(90,TimeUnit.SECONDS)
-                .addInterceptor(new Interceptor() {
-                    @Override
-                    public okhttp3.Response intercept(Chain chain) throws IOException {
-                        Request originalRequest = chain.request();
-                        Request.Builder builder = originalRequest.newBuilder().header("Authorization",
-                                Credentials.basic("system@nat.be", "rootroot"));
-                        Request newRequest = builder.build();
-                        return chain.proceed(newRequest);
-                    }
-                })
+                .writeTimeout(45, TimeUnit.SECONDS)
+                .connectTimeout(45, TimeUnit.SECONDS)
+                .readTimeout(45,TimeUnit.SECONDS)
+//                .addInterceptor(new Interceptor() {
+//                    @Override
+//                    public okhttp3.Response intercept(Chain chain) throws IOException {
+//                        Request originalRequest = chain.request();
+//                        Request.Builder builder = originalRequest.newBuilder().header("Authorization",
+//                                Credentials.basic("system@nat.be", "rootroot"));
+//                        Request newRequest = builder.build();
+//                        return chain.proceed(newRequest);
+//                    }
+//                })
                 .build();
     }
 }

@@ -23,9 +23,9 @@ public class HomeController implements IHomeController, RestCallBack<User> {
 
     public HomeController(IHomeView homeView) {
         this.view = homeView;
-        UserAdapter userAda = new UserAdapter(this);
+        UserAdapter userAda = new UserAdapter();
         String cre = Credentials.basic("admin@nat.be", "adminadmin");
-        userAda.execute(cre);
+//        userAda.execute(cre);
     }
 
     @Override

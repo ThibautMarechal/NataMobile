@@ -62,24 +62,24 @@ public class LoginActivity extends AbstractActivity implements ILoginView {
         }
         if(!password.isEmpty() && !email.isEmpty()){
             //TODO AUTH HERE
-            showView(ViewEnum.HOME);
-            displayToast("CONNECTED");
+//            showView(ViewEnum.HOME);
+            controller.connect();
         }else{
             //TEMPORAIRE
-            showView(ViewEnum.HOME);
-            displayToast("CONNECTED");
+//            showView(ViewEnum.HOME);
+//            displayToast("CONNECTED");
         }
     }
 
     @Override
     public String getUserName(){
         TextView usernameTextView = findViewById(R.id.loginEmail);
-        return usernameTextView.toString();
+        return usernameTextView.getText().toString();
     }
 
     @Override
     public String getPassword(){
         TextView passwordTextView = findViewById(R.id.loginPassword);
-        return passwordTextView.toString();
+        return passwordTextView.getText().toString();
     }
 }
