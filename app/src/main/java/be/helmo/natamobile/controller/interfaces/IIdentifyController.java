@@ -5,5 +5,5 @@ package be.helmo.natamobile.controller.interfaces;
  */
 
 public interface IIdentifyController extends IBaseController {
-    String[] getBirds();
+	String[] getBirds();
 }

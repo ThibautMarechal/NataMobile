@@ -5,8 +5,11 @@ package be.helmo.natamobile.controller.interfaces;
  */
 
 public interface IBaseController {
-    void onCreate();
-    void onPause();
-    void onResume();
-    void onDestroy();
+	void onCreate();
+
+	void onPause();
+
+	void onResume();
+
+	void onDestroy();
 }

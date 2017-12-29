@@ -7,26 +7,26 @@ import be.helmo.natamobile.models.Bird;
 
 public class RBird extends MongoIdentifiedModel
 	  implements ReceptionObject<Bird> {
-	
+
 	private String name;
 	private String description;
-	
+
 	private List<String> picture;
 	private Map<String, List<Object>> data;
-	
+
 	public RBird() {
 	}
-	
+
 	public RBird(Bird bird) {
 		this.setId(bird.getId());
 		this.name = bird.getName();
 		this.description = bird.getDescription();
 	}
-	
+
 	public List<Object> get(String key) {
 		return data.get(key);
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format(
@@ -34,7 +34,7 @@ public class RBird extends MongoIdentifiedModel
 			  getId(), name, picture.size(), data.size()
 		);
 	}
-	
+
 	@Override
 	public Bird getModel() {
 		Bird rtn = new Bird();

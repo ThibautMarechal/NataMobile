@@ -14,22 +14,22 @@ import be.helmo.natamobile.models.Bird;
  * Created by Maréchal Thibaut on 27/12/2017.
  */
 
-public class BirdViewHolder extends RecyclerView.ViewHolder{
+public class BirdViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView textViewView;
-    private ImageView imageView;
+	private TextView textViewView;
+	private ImageView imageView;
 
-    //itemView est la vue correspondante à 1 cellule
-    public BirdViewHolder(View itemView) {
-        super(itemView);
+	//itemView est la vue correspondante à 1 cellule
+	public BirdViewHolder(View itemView) {
+		super(itemView);
 
-        textViewView = itemView.findViewById(R.id.text);
-        imageView = itemView.findViewById(R.id.image);
-    }
+		textViewView = itemView.findViewById(R.id.text);
+		imageView = itemView.findViewById(R.id.image);
+	}
 
-    //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
-    public void bind(Bird b){
-        textViewView.setText(b.getName());
-        Picasso.with(imageView.getContext()).load(b.getPicturePath()).centerCrop().fit().into(imageView);
-    }
+	//puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
+	public void bind(Bird b) {
+		textViewView.setText(b.getName());
+		Picasso.with(imageView.getContext()).load(b.getPicturePath()).centerCrop().fit().into(imageView);
+	}
 }

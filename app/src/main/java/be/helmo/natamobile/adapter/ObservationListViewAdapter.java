@@ -22,47 +22,47 @@ import be.helmo.natamobile.models.Observation;
  */
 
 public class ObservationListViewAdapter extends ArrayAdapter<Observation> {
-    private final List<Observation> values;
-    private final Context context;
+	private final List<Observation> values;
+	private final Context context;
 
-    public ObservationListViewAdapter(@NonNull Context context, List<Observation> values) {
-        super(context, R.layout.list_observation, values);
-        this.context = context;
-        this.values = values;
-    }
+	public ObservationListViewAdapter(@NonNull Context context, List<Observation> values) {
+		super(context, R.layout.list_observation, values);
+		this.context = context;
+		this.values = values;
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-        LayoutInflater inflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_observation, parent, false);
-
-
-        TextView birdName = rowView.findViewById(R.id.list_obs_bird_name);
-        if(values.get(position).getBird() != null){
-            birdName.setText(values.get(position).getBird().getName());
-        }
-        birdName.setText(R.string.not_identified);
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		LayoutInflater inflater = (LayoutInflater) context
+			  .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		View rowView = inflater.inflate(R.layout.list_observation, parent, false);
 
 
-        TextView obsNumBird = rowView.findViewById(R.id.list_obs_number_bird);
-        obsNumBird.setText(String.valueOf(values.get(position).getNumberOfBird()));
+		TextView birdName = rowView.findViewById(R.id.list_obs_bird_name);
+		if (values.get(position).getBird() != null) {
+			birdName.setText(values.get(position).getBird().getName());
+		}
+		birdName.setText(R.string.not_identified);
 
-        ImageView sesImg = rowView.findViewById(R.id.list_obs_img);
-        switch (values.get(position).getFileType()){
-            case PICTURE:
-                Picasso.with(sesImg.getContext()).load(Uri.parse(values.get(position).getFilePath())).centerCrop().fit().into(sesImg);
-                break;
-            case AUDIO:
-                sesImg.setImageResource(R.drawable.audio);
-                break;
-            case VIDEO:
-                sesImg.setImageResource(R.drawable.video);
-                break;
-            default:
-                sesImg.setImageResource(R.drawable.no_media);
-                break;
-        }
-        return rowView;
-    }
+
+		TextView obsNumBird = rowView.findViewById(R.id.list_obs_number_bird);
+		obsNumBird.setText(String.valueOf(values.get(position).getNumberOfBird()));
+
+		ImageView sesImg = rowView.findViewById(R.id.list_obs_img);
+		switch (values.get(position).getFileType()) {
+			case PICTURE:
+				Picasso.with(sesImg.getContext()).load(Uri.parse(values.get(position).getFilePath())).centerCrop().fit().into(sesImg);
+				break;
+			case AUDIO:
+				sesImg.setImageResource(R.drawable.audio);
+				break;
+			case VIDEO:
+				sesImg.setImageResource(R.drawable.video);
+				break;
+			default:
+				sesImg.setImageResource(R.drawable.no_media);
+				break;
+		}
+		return rowView;
+	}
 }

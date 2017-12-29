@@ -5,18 +5,18 @@ package be.helmo.natamobile.view.implementations;
  */
 
 public enum ViewEnum {
-    HOME(HomeActivity.class),
-    LOG_IN(LoginActivity.class),
-    CURRENT_SESSION(CurrentSessionActivity.class),
-    AUDIO_RECORDER(AudioRecorderActivity.class);
+	HOME(HomeActivity.class),
+	LOG_IN(LoginActivity.class),
+	CURRENT_SESSION(CurrentSessionActivity.class),
+	AUDIO_RECORDER(AudioRecorderActivity.class);
 
-    private final Class activityClass;
+	private final Class activityClass;
 
-    ViewEnum(Class activityClass) {
-        this.activityClass =activityClass;
-    }
+	ViewEnum(Class activityClass) {
+		this.activityClass = activityClass;
+	}
 
-    public Class getActivityClass() {
-        return activityClass;
-    }
+	public Class getActivityClass() {
+		return activityClass;
+	}
 }

@@ -17,7 +17,7 @@ import be.helmo.natamobile.tools.HELMoCredentialsProvider;
 
 public class GoogleStorage {
 /*
-    private final Storage storage;
+	private final Storage storage;
     private String bucketName;
 
     public GoogleStorage() {

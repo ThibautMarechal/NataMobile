@@ -15,30 +15,30 @@ import be.helmo.natamobile.models.Bird;
  */
 
 public class BirdRecicleViewAdapter extends RecyclerView.Adapter<BirdViewHolder> {
-    List<Bird> list;
+	List<Bird> list;
 
-    //ajouter un constructeur prenant en entrée une liste
-    public BirdRecicleViewAdapter(List<Bird> list) {
-        this.list = list;
-    }
+	//ajouter un constructeur prenant en entrée une liste
+	public BirdRecicleViewAdapter(List<Bird> list) {
+		this.list = list;
+	}
 
-    //cette fonction permet de créer les viewHolder
-    //et par la même indiquer la vue à inflater (à partir des layout xml)
-    @Override
-    public BirdViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell_cards,viewGroup,false);
-        return new BirdViewHolder(view);
-    }
+	//cette fonction permet de créer les viewHolder
+	//et par la même indiquer la vue à inflater (à partir des layout xml)
+	@Override
+	public BirdViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int viewType) {
+		View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cell_cards, viewGroup, false);
+		return new BirdViewHolder(view);
+	}
 
-    //c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
-    @Override
-    public void onBindViewHolder(BirdViewHolder myViewHolder, int position) {
-        Bird myObject = list.get(position);
-        myViewHolder.bind(myObject);
-    }
+	//c'est ici que nous allons remplir notre cellule avec le texte/image de chaque MyObjects
+	@Override
+	public void onBindViewHolder(BirdViewHolder myViewHolder, int position) {
+		Bird myObject = list.get(position);
+		myViewHolder.bind(myObject);
+	}
 
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
+	@Override
+	public int getItemCount() {
+		return list.size();
+	}
 }

@@ -5,7 +5,7 @@ package be.helmo.natamobile.view.interfaces;
  */
 
 public interface IHomeView extends IView {
-    void updateUserUI();
+	void updateUserUI();
 
-    void updateSessionList();
+	void updateSessionList();
 }

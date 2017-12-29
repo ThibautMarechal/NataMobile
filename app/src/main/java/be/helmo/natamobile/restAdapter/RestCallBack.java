@@ -5,5 +5,5 @@ package be.helmo.natamobile.restAdapter;
  */
 
 public interface RestCallBack<T> {
-    void onRestCallComplete(T object);
+	void onRestCallComplete(T object);
 }

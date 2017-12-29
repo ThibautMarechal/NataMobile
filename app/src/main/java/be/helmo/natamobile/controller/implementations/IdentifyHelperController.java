@@ -11,44 +11,45 @@ import be.helmo.natamobile.models.Attribute;
  */
 
 public class IdentifyHelperController implements IIdentifyHelperController {
-    private List<Attribute> attributes = new ArrayList<>();
+	private List<Attribute> attributes = new ArrayList<>();
 
-    public IdentifyHelperController(){
+	public IdentifyHelperController() {
 
-        for (int i = 0; i < 3; i++) {
-            Attribute a = new Attribute();
-            a.setKey("key"+i);
-            List<String> values = new ArrayList<>();
-            values.add("v1-"+i);
-            values.add("v2-"+i);
-            values.add("v3-"+i);
-            a.setValues(values);
-            attributes.add(a);
-        }
+		for (int i = 0; i < 3; i++) {
+			Attribute a = new Attribute();
+			a.setKey("key" + i);
+			List<String> values = new ArrayList<>();
+			values.add("v1-" + i);
+			values.add("v2-" + i);
+			values.add("v3-" + i);
+			a.setValues(values);
+			attributes.add(a);
+		}
 
-    }
-    @Override
-    public void onCreate() {
+	}
 
-    }
+	@Override
+	public void onCreate() {
 
-    @Override
-    public void onPause() {
+	}
 
-    }
+	@Override
+	public void onPause() {
 
-    @Override
-    public void onResume() {
+	}
 
-    }
+	@Override
+	public void onResume() {
 
-    @Override
-    public void onDestroy() {
+	}
 
-    }
+	@Override
+	public void onDestroy() {
 
-    @Override
-    public List<Attribute> getAttributes() {
-        return attributes;
-    }
+	}
+
+	@Override
+	public List<Attribute> getAttributes() {
+		return attributes;
+	}
 }

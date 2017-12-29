@@ -7,6 +7,6 @@ import retrofit2.http.Header;
 
 public interface UserService {
 
-    @GET("users/email/")
-    Call<RUser> getByEmail(@Header("Authorization") String credentials);
+	@GET("users/email/")
+	Call<RUser> getByEmail(@Header("Authorization") String credentials);
 }

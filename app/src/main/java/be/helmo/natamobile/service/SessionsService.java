@@ -9,6 +9,6 @@ import retrofit2.http.Query;
 
 public interface SessionsService {
 
-    @GET("sessions/for/")
-    Call<List<RSession>> getFor(@Query("q") long id);
+	@GET("sessions/for/")
+	Call<List<RSession>> getFor(@Query("q") long id);
 }

@@ -9,5 +9,5 @@ import be.helmo.natamobile.models.Bird;
  */
 
 public interface IIdentifyBirdController {
-    List<Bird> getPossibleBirds();
+	List<Bird> getPossibleBirds();
 }

@@ -5,5 +5,5 @@ package be.helmo.natamobile.controller.interfaces;
  */
 
 public interface ILoginController extends IBaseController {
-    void connect();
+	void connect();
 }

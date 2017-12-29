@@ -1,7 +1,5 @@
 package be.helmo.natamobile.restAdapter;
 
-import android.os.AsyncTask;
-
 import java.io.IOException;
 
 import be.helmo.natamobile.models.User;
@@ -31,7 +29,7 @@ public class UserAdapter {
 			if (response.isSuccessful()) {
 				RUser rUser = response.body();
 				return rUser.getModel();
-			} else if(response.code() == 403) {
+			} else if (response.code() == 403) {
 				throw new IllegalAccessException("Bad credentials");
 			} else {
 				throw new IllegalAccessError(response.message()); //TODO Change exception type

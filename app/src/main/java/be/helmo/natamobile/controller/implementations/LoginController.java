@@ -1,19 +1,15 @@
 package be.helmo.natamobile.controller.implementations;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-
 
 import be.helmo.natamobile.controller.interfaces.ILoginController;
 import be.helmo.natamobile.models.User;
 import be.helmo.natamobile.restAdapter.RestCallBack;
 import be.helmo.natamobile.restAdapter.UserAdapter;
-import be.helmo.natamobile.view.interfaces.ILoginView;
 import be.helmo.natamobile.view.implementations.ViewEnum;
-import be.helmo.natamobile.tools.Environment;
+import be.helmo.natamobile.view.interfaces.ILoginView;
 import okhttp3.Credentials;
 
 /**
@@ -41,7 +37,7 @@ public class LoginController implements ILoginController, RestCallBack<User> {
 		mHandler = new Handler(Looper.getMainLooper()) {
 			@Override
 			public void handleMessage(Message message) {
-				if(message.obj != null) {
+				if (message.obj != null) {
 
 					view.displayToast("Connecté");
 					view.showView(ViewEnum.HOME);

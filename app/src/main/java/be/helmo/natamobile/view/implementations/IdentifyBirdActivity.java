@@ -22,37 +22,40 @@ import be.helmo.natamobile.view.interfaces.IIdentifyBirdView;
  */
 
 public class IdentifyBirdActivity extends AbstractActivity implements IIdentifyBirdView {
-    private IIdentifyBirdController controller;
-    private RecyclerView recyclerViewBirdList;
+	private IIdentifyBirdController controller;
+	private RecyclerView recyclerViewBirdList;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.identify_bird);
-        Bundle extras = getIntent().getExtras();
-        recyclerViewBirdList =  findViewById(R.id.BirdRecyclerView);
-        recyclerViewBirdList.setLayoutManager(new GridLayoutManager(this,2));
-        recyclerViewBirdList.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerViewBirdList, new RecyclerItemClickListener.OnItemClickListener(){
-            @Override public void onItemClick(View view, int position) {
-                birdSelected(position);
-            }
-            @Override public void onLongItemClick(View view, int position) {
-                birdSelected(position);
-            }
-        }));
-        controller = new IdentifyBirdController(this, (Map<String,String>) extras.get("mapAttributes"));
-    }
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.identify_bird);
+		Bundle extras = getIntent().getExtras();
+		recyclerViewBirdList = findViewById(R.id.BirdRecyclerView);
+		recyclerViewBirdList.setLayoutManager(new GridLayoutManager(this, 2));
+		recyclerViewBirdList.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerViewBirdList, new RecyclerItemClickListener.OnItemClickListener() {
+			@Override
+			public void onItemClick(View view, int position) {
+				birdSelected(position);
+			}
 
-    @Override
-    public void populateListView(List<Bird> birds){
-        recyclerViewBirdList.setAdapter(new BirdRecicleViewAdapter(birds));
-    }
+			@Override
+			public void onLongItemClick(View view, int position) {
+				birdSelected(position);
+			}
+		}));
+		controller = new IdentifyBirdController(this, (Map<String, String>) extras.get("mapAttributes"));
+	}
 
-    private void birdSelected(int position){
-        Bird selectedbird = controller.getPossibleBirds().get(position);
-        Intent data = new Intent();
-        data.putExtra("BirdName", selectedbird.getName());
-        setResult(RESULT_OK, data);
-        finish();
-    }
+	@Override
+	public void populateListView(List<Bird> birds) {
+		recyclerViewBirdList.setAdapter(new BirdRecicleViewAdapter(birds));
+	}
+
+	private void birdSelected(int position) {
+		Bird selectedbird = controller.getPossibleBirds().get(position);
+		Intent data = new Intent();
+		data.putExtra("BirdName", selectedbird.getName());
+		setResult(RESULT_OK, data);
+		finish();
+	}
 }

@@ -9,13 +9,13 @@ import be.helmo.natamobile.models.Observation;
  */
 
 public interface ICurrentSessionController extends IBaseController {
-    void newObservationPicture(String filePath);
+	void newObservationPicture(String filePath);
 
-    void newObservationVideo(String filePath);
+	void newObservationVideo(String filePath);
 
-    void newObservationAudio(String filePath);
+	void newObservationAudio(String filePath);
 
-    void newObservationNoMedia();
+	void newObservationNoMedia();
 
-    List<Observation> getObservations();
+	List<Observation> getObservations();
 }

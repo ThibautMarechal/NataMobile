@@ -7,7 +7,6 @@ package be.helmo.natamobile.tools;
 public class Environment {
 
 
-
 	public static final String EMAIL = "emailKey";
 	public static final String PASSWORD = "passwordKey";
 

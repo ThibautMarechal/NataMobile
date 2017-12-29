@@ -8,48 +8,49 @@ import java.util.Map;
  */
 
 public class Bird {
-    private long id;
-    private String name;
-    private String description;
-    private Map<String, List<String>> attributes;
-    private String picturePath;
-    public long getId() {
-        return id;
-    }
+	private long id;
+	private String name;
+	private String description;
+	private Map<String, List<String>> attributes;
+	private String picturePath;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Map<String, List<String>> getAttributes() {
-        return attributes;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setAttributes(Map<String, List<String>> attributes) {
-        this.attributes = attributes;
-    }
+	public Map<String, List<String>> getAttributes() {
+		return attributes;
+	}
 
-    public String getPicturePath() {
-        return picturePath;
-    }
+	public void setAttributes(Map<String, List<String>> attributes) {
+		this.attributes = attributes;
+	}
 
-    public void setPicturePath(String picturePath) {
-        this.picturePath = picturePath;
-    }
+	public String getPicturePath() {
+		return picturePath;
+	}
+
+	public void setPicturePath(String picturePath) {
+		this.picturePath = picturePath;
+	}
 }

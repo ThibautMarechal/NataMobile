@@ -11,23 +11,23 @@ import be.helmo.natamobile.models.User;
 //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class RUser extends IdentifiedModel
 	  implements ReceptionObject<User> {
-	
+
 	private String fullName;
-	
+
 	private String email;
-	
+
 	private boolean admin = false;
-	
+
 	private String onlinePath;
-	
+
 	private List<RRole> roles;
 	private List<RSession> sessions;
-	
+
 	private String password;
-	
+
 	public RUser() {
 	}
-	
+
 	public RUser(User usr) {
 		this.setId(usr.getId());
 		this.fullName = usr.getFullName();
@@ -42,21 +42,21 @@ public class RUser extends IdentifiedModel
 			  ? convertRSessions(usr.getSessions())
 			  : new ArrayList<RSession>();
 	}
-	
+
 	private List<RSession> convertRSessions(List<Session> sessions) {
 		List<RSession> rtn = new ArrayList<>();
 		for (Session ses : sessions)
 			rtn.add(new RSession(ses));
 		return rtn;
 	}
-	
+
 	private List<RRole> convertRRoles(List<Role> roles) {
 		List<RRole> rtn = new ArrayList<>();
 		for (Role role : roles)
 			rtn.add(new RRole(role));
 		return rtn;
 	}
-	
+
 	@Override
 	public User getModel() {
 		User output = new User();
@@ -69,14 +69,14 @@ public class RUser extends IdentifiedModel
 		output.setSessions(getSessions());
 		return output;
 	}
-	
+
 	public List<Role> getRoles() {
 		List<Role> output = new ArrayList<>();
 		for (RRole item : roles)
 			output.add(item.getModel());
 		return output;
 	}
-	
+
 	public List<Session> getSessions() {
 		if (sessions == null) {
 			return Collections.emptyList();

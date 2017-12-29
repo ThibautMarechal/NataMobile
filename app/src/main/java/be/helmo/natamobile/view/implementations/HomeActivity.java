@@ -49,6 +49,7 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
 			}
 		});
 	}
+
 	@Override
 	public void updateUserUI() {
 		//USERNAME
@@ -62,8 +63,9 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
 		String ppUrl = controller.getUserPictureProfile();
 		Picasso.with(pp.getContext()).load(ppUrl).centerCrop().fit().into(pp);
 	}
+
 	@Override
-	public void updateSessionList(){
+	public void updateSessionList() {
 		//LIST SESSION
 		SessionListViewAdapter adapter = new SessionListViewAdapter(this, controller.getSessions());
 		ListView sessionListView = findViewById(R.id.homeSessionListView);

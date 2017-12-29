@@ -8,6 +8,6 @@ import be.helmo.natamobile.models.Attribute;
  * Created by Maréchal Thibaut on 26/12/2017.
  */
 
-public interface IIdentifyHelperController extends IBaseController{
-    List<Attribute> getAttributes();
+public interface IIdentifyHelperController extends IBaseController {
+	List<Attribute> getAttributes();
 }

@@ -11,43 +11,45 @@ import be.helmo.natamobile.models.Bird;
  */
 
 public class IdentifyController implements IIdentifyController {
-    private List<Bird> birds;
-    public IdentifyController(){
-        //TODO CALL REST
-        birds = new ArrayList<>();
-        Bird b = new Bird();
-        b.setName("Oiseau1");
-        birds.add(b);
-        Bird b2 = new Bird();
-        b2.setName("Oiseau2");
-        birds.add(b2);
-    }
-    @Override
-    public void onCreate() {
+	private List<Bird> birds;
 
-    }
+	public IdentifyController() {
+		//TODO CALL REST
+		birds = new ArrayList<>();
+		Bird b = new Bird();
+		b.setName("Oiseau1");
+		birds.add(b);
+		Bird b2 = new Bird();
+		b2.setName("Oiseau2");
+		birds.add(b2);
+	}
 
-    @Override
-    public void onPause() {
+	@Override
+	public void onCreate() {
 
-    }
+	}
 
-    @Override
-    public void onResume() {
+	@Override
+	public void onPause() {
 
-    }
+	}
 
-    @Override
-    public void onDestroy() {
+	@Override
+	public void onResume() {
 
-    }
+	}
 
-    @Override
-    public String[] getBirds() {
-        String [] returnValue = new String[birds.size()];
-        for (int i = 0; i < birds.size(); i++) {
-            returnValue[i] = birds.get(i).getName();
-        }
-        return returnValue;
-    }
+	@Override
+	public void onDestroy() {
+
+	}
+
+	@Override
+	public String[] getBirds() {
+		String[] returnValue = new String[birds.size()];
+		for (int i = 0; i < birds.size(); i++) {
+			returnValue[i] = birds.get(i).getName();
+		}
+		return returnValue;
+	}
 }
