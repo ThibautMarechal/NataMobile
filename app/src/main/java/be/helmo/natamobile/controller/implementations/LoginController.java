@@ -1,5 +1,7 @@
 package be.helmo.natamobile.controller.implementations;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
@@ -11,6 +13,7 @@ import be.helmo.natamobile.restAdapter.RestCallBack;
 import be.helmo.natamobile.restAdapter.UserAdapter;
 import be.helmo.natamobile.view.interfaces.ILoginView;
 import be.helmo.natamobile.view.implementations.ViewEnum;
+import be.helmo.natamobile.tools.Environment;
 import okhttp3.Credentials;
 
 /**
@@ -22,22 +25,24 @@ public class LoginController implements ILoginController, RestCallBack<User> {
 
 	private Handler mHandler;
 
-	public LoginController(ILoginView loginview) {
-		this.view = loginview;
+	private User loggedUser;
+
+	public LoginController(ILoginView loginView) {
+		this.view = loginView;
 	}
 
-	private User loggedUser;
 
 	@Override
 	public void connect() {
-		String username = view.getUserName();
-		String password = view.getPassword();
+		final String username = view.getUserName();
+		final String password = view.getPassword();
 		//TODO Connect
 		String credentials = Credentials.basic(username, password);
 		mHandler = new Handler(Looper.getMainLooper()) {
 			@Override
 			public void handleMessage(Message message) {
 				if(message.obj != null) {
+
 					view.displayToast("Connecté");
 					view.showView(ViewEnum.HOME);
 				} else {
@@ -70,7 +75,6 @@ public class LoginController implements ILoginController, RestCallBack<User> {
 
 	@Override
 	public void onCreate() {
-
 	}
 
 	@Override
