@@ -16,7 +16,7 @@ import okhttp3.Credentials;
  * Created by marechthib on 19/12/2017.
  */
 
-public class LoginController implements ILoginController, RestCallBack<User> {
+public class LoginController implements ILoginController {
 	private ILoginView view;
 
 	private Handler mHandler;
@@ -31,14 +31,15 @@ public class LoginController implements ILoginController, RestCallBack<User> {
 	@Override
 	public void connect() {
 		final String username = view.getUserName();
+//		final String username = "user@nat.be";
 		final String password = view.getPassword();
+//		final String password = "useruser";
 		//TODO Connect
 		String credentials = Credentials.basic(username, password);
 		mHandler = new Handler(Looper.getMainLooper()) {
 			@Override
 			public void handleMessage(Message message) {
 				if (message.obj != null) {
-
 					view.displayToast("Connecté");
 					view.showView(ViewEnum.HOME);
 				} else {
@@ -49,7 +50,6 @@ public class LoginController implements ILoginController, RestCallBack<User> {
 			}
 		};
 		callREST(credentials);
-
 	}
 
 	private void callREST(final String credentials) {
@@ -88,8 +88,7 @@ public class LoginController implements ILoginController, RestCallBack<User> {
 
 	}
 
-	@Override
-	public void onRestCallComplete(User object) {
-
+	public User getLoggedUser() {
+		return loggedUser;
 	}
 }

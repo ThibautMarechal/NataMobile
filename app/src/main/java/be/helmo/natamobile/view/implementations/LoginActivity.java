@@ -21,9 +21,6 @@ public class LoginActivity extends AbstractActivity implements ILoginView {
 	private EditText emailEditText;
 	private EditText passwordEditText;
 
-	public static final String MyPREFERENCES = "UserLog";
-	SharedPreferences sharedpreferences;
-
 	public LoginActivity() {
 		this.controller = new LoginController(this);
 	}
@@ -57,16 +54,19 @@ public class LoginActivity extends AbstractActivity implements ILoginView {
 			}
 		});
 
-
-		sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+		emailEditText.setText("user@nat.be");
+		passwordEditText.setText("useruser");
 	}
 
 	@Override
-	protected void onStop() {
-		super.onStop();
+	protected void onPause() {
+		super.onPause();
 		SharedPreferences.Editor editor = sharedpreferences.edit();
+		editor.putLong(Environment.ID, controller.getLoggedUser().getId());
+		editor.putString(Environment.NAME, controller.getLoggedUser().getFullName());
 		editor.putString(Environment.EMAIL, getUserName());
 		editor.putString(Environment.PASSWORD, getPassword());
+		editor.putString(Environment.PICTURE, controller.getLoggedUser().getPicture());
 		editor.apply();
 	}
 

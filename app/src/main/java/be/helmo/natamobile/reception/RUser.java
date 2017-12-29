@@ -19,6 +19,7 @@ public class RUser extends IdentifiedModel
 	private boolean admin = false;
 
 	private String onlinePath;
+	private String publicLink;
 
 	private List<RRole> roles;
 	private List<RSession> sessions;
@@ -34,7 +35,7 @@ public class RUser extends IdentifiedModel
 		this.email = usr.getEmail();
 		this.admin = usr.isAdmin();
 		this.password = usr.getPassword();
-		this.onlinePath = usr.getPicture();
+		this.publicLink = usr.getPicture();
 		this.roles = (usr.getRoles() != null)
 			  ? convertRRoles(usr.getRoles())
 			  : new ArrayList<RRole>();
@@ -64,7 +65,7 @@ public class RUser extends IdentifiedModel
 		output.setFullName(this.fullName);
 		output.setEmail(this.email);
 		output.setAdmin(this.admin);
-		output.setPicture(this.onlinePath);
+		output.setPicture(this.publicLink);
 		output.setRoles(getRoles());
 		output.setSessions(getSessions());
 		return output;
@@ -133,5 +134,13 @@ public class RUser extends IdentifiedModel
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getPublicLink() {
+		return publicLink;
+	}
+
+	public void setPublicLink(String publicLink) {
+		this.publicLink = publicLink;
 	}
 }

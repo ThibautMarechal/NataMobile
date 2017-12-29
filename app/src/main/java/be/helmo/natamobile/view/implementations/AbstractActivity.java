@@ -3,10 +3,12 @@ package be.helmo.natamobile.view.implementations;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import be.helmo.natamobile.tools.Environment;
 import be.helmo.natamobile.view.interfaces.IView;
 
 /**
@@ -14,6 +16,9 @@ import be.helmo.natamobile.view.interfaces.IView;
  */
 
 public abstract class AbstractActivity extends AppCompatActivity implements IView {
+
+	SharedPreferences sharedpreferences;
+
 	protected String[] permissions = new String[]{
 		  Manifest.permission.READ_CONTACTS,
 		  Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -40,5 +45,35 @@ public abstract class AbstractActivity extends AppCompatActivity implements IVie
 	protected void onCreate(Bundle savedInstanceState) {
 		//TODO AUTH HERE
 		super.onCreate(savedInstanceState);
+
+		sharedpreferences = getSharedPreferences(Environment.PREF_NAME, Context.MODE_PRIVATE);
+	}
+
+	public String getSharedEmail() {
+		return sharedpreferences.getString(Environment.EMAIL, "system@nat.be");
+	}
+
+	public String getSharedPassword() {
+		return sharedpreferences.getString(Environment.PASSWORD, "rootroot");
+	}
+
+	public long getSharedId() {
+		return sharedpreferences.getLong(Environment.ID, 0);
+	}
+
+	public String getSharedName() {
+		return sharedpreferences.getString(Environment.NAME, "Full Name");
+	}
+
+	public String getSharedPicture() {
+		return sharedpreferences.getString(Environment.PICTURE, Environment.DEFAULT_PIC);
+	}
+
+	public String getSharedLatitude() {
+		return sharedpreferences.getString(Environment.CURRENT_SESSION_LAT, "0");
+	}
+
+	public String getSharedLongitude() {
+		return sharedpreferences.getString(Environment.CURRENT_SESSION_LON, "0");
 	}
 }

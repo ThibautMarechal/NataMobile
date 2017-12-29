@@ -13,7 +13,7 @@ import be.helmo.natamobile.tools.RESTClient;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class SessionAdapter extends AsyncTask<Long, Void, List<Session>> {
+public class SessionAdapter {
 
 	private SessionsService service;
 
@@ -21,9 +21,8 @@ public class SessionAdapter extends AsyncTask<Long, Void, List<Session>> {
 		service = RESTClient.getClient().create(SessionsService.class);
 	}
 
-	@Override
-	protected List<Session> doInBackground(Long... longs) {
-		Call<List<RSession>> call = service.getFor(longs[0]);
+	public List<Session> getFor(String credentials, Long id) throws IllegalAccessException {
+		Call<List<RSession>> call = service.getFor(credentials, id);
 		try {
 			Response<List<RSession>> response = call.execute();
 
@@ -33,6 +32,8 @@ public class SessionAdapter extends AsyncTask<Long, Void, List<Session>> {
 					sessions.add(rSession.getModel());
 				}
 				return sessions;
+			} else if (response.code() == 403) {
+				throw new IllegalAccessException("Bad credentials");
 			} else {
 				throw new IllegalAccessError(); //TODO Change exception type
 			}
@@ -41,13 +42,4 @@ public class SessionAdapter extends AsyncTask<Long, Void, List<Session>> {
 			throw new IllegalAccessError(); //TODO Change exception type
 		}
 	}
-
-	@Override
-	protected void onPostExecute(List<Session> sessions) {
-		super.onPostExecute(sessions);
-	}
-
-	//	public List<Session> getFor(long id) throws IOException {
-//
-//	}
 }

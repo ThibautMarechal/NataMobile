@@ -19,6 +19,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -27,6 +28,8 @@ import be.helmo.natamobile.adapter.ObservationListViewAdapter;
 import be.helmo.natamobile.controller.implementations.CurrentSessionController;
 import be.helmo.natamobile.controller.interfaces.ICurrentSessionController;
 import be.helmo.natamobile.models.Observation;
+import be.helmo.natamobile.models.Session;
+import be.helmo.natamobile.models.User;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 
 /**
@@ -47,6 +50,8 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 	private String filePath;
 
 	private StorageReference mStorageRef;
+
+	private Session session;
 
 	public CurrentSessionActivity() {
 		this.controller = new CurrentSessionController(this);
@@ -96,6 +101,15 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 		ObservationListViewAdapter adapter = new ObservationListViewAdapter(this, controller.getObservations());
 		observationListView.setAdapter(adapter);
 
+		session = new Session();
+		session.setLatitude(getSharedLatitude());
+		session.setLongitude(getSharedLongitude());
+		session.setStart(new Timestamp(new Date().getTime()));
+		User owner = new User();
+		owner.setId(getSharedId());
+		owner.setFullName(getSharedName());
+		owner.setEmail(getSharedEmail());
+		session.setUser(owner);
 	}
 
 	private void takeAudio() {

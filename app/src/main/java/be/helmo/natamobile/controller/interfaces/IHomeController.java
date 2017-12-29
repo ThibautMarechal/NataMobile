@@ -14,4 +14,6 @@ public interface IHomeController extends IBaseController {
 	String getUserEmail();
 
 	List<Session> getSessions();
+
+	void updateValues();
 }

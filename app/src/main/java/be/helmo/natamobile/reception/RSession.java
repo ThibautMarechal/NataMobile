@@ -16,7 +16,6 @@ public class RSession extends IdentifiedModel
 	private Timestamp dateStart;
 	private Timestamp dateEnd;
 
-
 	private String latitude;
 	private String longitude;
 

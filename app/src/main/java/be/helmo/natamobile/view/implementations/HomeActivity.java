@@ -1,6 +1,8 @@
 package be.helmo.natamobile.view.implementations;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -20,13 +22,12 @@ import be.helmo.natamobile.adapter.SessionListViewAdapter;
 import be.helmo.natamobile.controller.implementations.HomeController;
 import be.helmo.natamobile.controller.interfaces.IHomeController;
 import be.helmo.natamobile.models.Session;
+import be.helmo.natamobile.tools.Environment;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 
 public class HomeActivity extends AbstractActivity implements IHomeView {
 	private static final int REQUEST_ALL_PERMISSION = 42;
 	private final IHomeController controller;
-
-	List<Session> ses;
 
 	public HomeActivity() {
 		this.controller = new HomeController(this);
@@ -48,19 +49,20 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
 				startNewSession();
 			}
 		});
+		controller.updateValues();
 	}
 
 	@Override
 	public void updateUserUI() {
 		//USERNAME
 		TextView username = findViewById(R.id.homeUsername);
-		username.setText(controller.getUsername());
+		username.setText(getSharedName());
 		//EMAIL
 		TextView email = findViewById(R.id.home_email);
-		email.setText(controller.getUserEmail());
+		email.setText(getSharedEmail());
 		//PICTURE
 		ImageView pp = findViewById(R.id.homeImageProfile);
-		String ppUrl = controller.getUserPictureProfile();
+		String ppUrl = getSharedPicture();
 		Picasso.with(pp.getContext()).load(ppUrl).centerCrop().fit().into(pp);
 	}
 
@@ -90,6 +92,10 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
 	private void startNewSession() {
 		//TODO SWAP THIS THINGS
 		//FOR EMULATOR
+		SharedPreferences.Editor editor = sharedpreferences.edit();
+		editor.putString(Environment.CURRENT_SESSION_LAT, "1");
+		editor.putString(Environment.CURRENT_SESSION_LON, "2");
+		editor.apply();
 		controller.startNewSession(0, 0);
 		/*
 		//FOR REAL SMARTPHONE
@@ -99,10 +105,30 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null) {
+                    SharedPreferences.Editor editor = sharedpreferences.edit();
+					editor.putString(Environment.CURRENT_SESSION_LAT, location.getLatitude());
+					editor.putString(Environment.CURRENT_SESSION_LON, location.getLongitude());
+					editor.apply();
                         controller.startNewSession(location.getLongitude(), location.getLatitude());
                     }
                 }
             });
         */
+	}
+
+	public String getSharedName() {
+		return super.getSharedName();
+	}
+
+	public String getSharedEmail() {
+		return super.getSharedEmail();
+	}
+
+	public String getSharedPassword() {
+		return super.getSharedPassword();
+	}
+
+	public long getSharedId() {
+		return super.getSharedId();
 	}
 }
