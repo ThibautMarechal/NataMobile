@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -92,12 +96,12 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
 	private void startNewSession() {
 		//TODO SWAP THIS THINGS
 		//FOR EMULATOR
-		SharedPreferences.Editor editor = sharedpreferences.edit();
+		/*SharedPreferences.Editor editor = sharedpreferences.edit();
 		editor.putString(Environment.CURRENT_SESSION_LAT, "1");
 		editor.putString(Environment.CURRENT_SESSION_LON, "2");
 		editor.apply();
-		controller.startNewSession(0, 0);
-		/*
+		controller.startNewSession(0, 0);*/
+
 		//FOR REAL SMARTPHONE
         FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mFusedLocationClient.getLastLocation()
@@ -106,14 +110,14 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
                 public void onSuccess(Location location) {
                     if (location != null) {
                     SharedPreferences.Editor editor = sharedpreferences.edit();
-					editor.putString(Environment.CURRENT_SESSION_LAT, location.getLatitude());
-					editor.putString(Environment.CURRENT_SESSION_LON, location.getLongitude());
+					editor.putString(Environment.CURRENT_SESSION_LAT, Double.toString(location.getLatitude()));
+					editor.putString(Environment.CURRENT_SESSION_LON, Double.toString(location.getLongitude()));
 					editor.apply();
                         controller.startNewSession(location.getLongitude(), location.getLatitude());
                     }
                 }
             });
-        */
+
 	}
 
 	public String getSharedName() {

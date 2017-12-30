@@ -80,4 +80,8 @@ public class Session extends IdentifiedModel {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public void addObservation(Observation observation) {
+		observations.add(observation);
+	}
 }

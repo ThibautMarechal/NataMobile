@@ -42,4 +42,22 @@ public class SessionAdapter {
 			throw new IllegalAccessError(); //TODO Change exception type
 		}
 	}
+
+	public List<RSession> addSessions(String credentials, List<RSession> sessions) throws IllegalAccessException {
+		Call<List<RSession>> call = service.addSessions(credentials, sessions);
+		try {
+			Response<List<RSession>> response = call.execute();
+
+			if (response.isSuccessful()) {
+				return response.body();
+			} else if (response.code() == 403) {
+				throw new IllegalAccessException("Bad credentials");
+			} else {
+				throw new IllegalAccessError(response.errorBody().toString()); //TODO Change exception type
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			throw new IllegalAccessError(); //TODO Change exception type
+		}
+	}
 }

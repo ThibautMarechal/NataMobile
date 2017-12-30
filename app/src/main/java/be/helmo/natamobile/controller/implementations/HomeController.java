@@ -83,8 +83,6 @@ public class HomeController implements IHomeController {
 				} else {
 					view.displayToast("Something Happened");
 				}
-				// This is where you do your work in the UI thread.
-				// Your worker tells you in the message what to do.
 			}
 		};
 		callREST(credentials);

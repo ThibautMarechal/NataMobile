@@ -21,5 +21,8 @@ public class Environment {
 	public static final String CURRENT_SESSION_LON = "currentSessionLongitudeKey";
 
 
+	public static final String FIREBASE_INSTANCE = "gs://natagora-grimar";
+
+
 
 }

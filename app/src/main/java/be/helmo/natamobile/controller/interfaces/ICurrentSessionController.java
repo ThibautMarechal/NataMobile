@@ -3,6 +3,7 @@ package be.helmo.natamobile.controller.interfaces;
 import java.util.List;
 
 import be.helmo.natamobile.models.Observation;
+import be.helmo.natamobile.models.Session;
 
 /**
  * Created by marechthib on 20/12/2017.
@@ -18,4 +19,6 @@ public interface ICurrentSessionController extends IBaseController {
 	void newObservationNoMedia();
 
 	List<Observation> getObservations();
+
+	void saveSession(Session session);
 }

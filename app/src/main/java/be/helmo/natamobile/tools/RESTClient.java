@@ -6,8 +6,12 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import java.lang.reflect.Type;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -21,10 +25,15 @@ public class RESTClient {
 	public static Retrofit getClient() {
 		OkHttpClient okHttpClient = getOkHttpClient();
 		GsonBuilder builder = new GsonBuilder();
-
 		builder.registerTypeAdapter(Date.class, new JsonDeserializer<Date>() {
 			public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 				return new Date(json.getAsJsonPrimitive().getAsLong());
+			}
+		});
+		builder.registerTypeAdapter(Date.class, new JsonSerializer<Timestamp>() {
+			@Override
+			public JsonElement serialize(Timestamp src, Type typeOfSrc, JsonSerializationContext context) {
+				return new JsonPrimitive(src.getTime());
 			}
 		});
 
@@ -33,7 +42,8 @@ public class RESTClient {
 
 		if (client == null) {
 			rtn = new Retrofit.Builder()
-				  .baseUrl("http://192.168.128.13:8081/GRIMAR-1.0/")
+				  .baseUrl("http://192.168.1.22:8080/")
+//				  .baseUrl("http://192.168.128.13:8081/GRIMAR-1.0/")
 				  .client(okHttpClient)
 				  .addConverterFactory(GsonConverterFactory.create(gson))
 				  .build();

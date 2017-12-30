@@ -72,9 +72,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="Button"
+            android:text="Stop Session"
             tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="288dp" />
+            tools:layout_editor_absoluteY="288dp"/>
 
     </RelativeLayout>
 

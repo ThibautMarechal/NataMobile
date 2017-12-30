@@ -29,6 +29,9 @@ public class RObservation extends IdentifiedModel
 	}
 
 	public RObservation(Observation obs) {
+		RMediaType rMediaType = new RMediaType();
+		rMediaType.setId(4);
+
 		this.setId(obs.getId());
 		this.latitude = obs.getLatitude();
 		this.longitude = obs.getLongitude();
@@ -36,9 +39,9 @@ public class RObservation extends IdentifiedModel
 		this.nbrObs = obs.getNumberOfBird();
 		this.validation = obs.isValid();
 		this.onlinePath = obs.getMediaPath();
-		this.birdId = obs.getBird().getId();
-		this.bird = new RBird(obs.getBird());
-		this.mediaType = new RMediaType(obs.getMediaType());
+		this.birdId = (obs.getBird() != null) ? obs.getBird().getId() : 0;
+		this.bird = (obs.getBird() != null) ? new RBird(obs.getBird()) : null;
+		this.mediaType = rMediaType;
 	}
 
 	@Override

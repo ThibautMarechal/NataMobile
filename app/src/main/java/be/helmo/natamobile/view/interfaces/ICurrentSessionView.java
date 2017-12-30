@@ -10,4 +10,8 @@ public interface ICurrentSessionView extends IView {
 	void updateObservationList();
 
 	void identifyBird(Observation observation);
+
+	String getSharedEmail();
+
+	String getSharedPassword();
 }

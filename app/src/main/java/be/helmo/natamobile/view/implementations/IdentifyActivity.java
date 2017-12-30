@@ -1,8 +1,11 @@
 package be.helmo.natamobile.view.implementations;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -10,10 +13,23 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.sql.Timestamp;
+import java.util.Date;
+
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.controller.implementations.IdentifyController;
 import be.helmo.natamobile.controller.interfaces.IIdentifyController;
 import be.helmo.natamobile.models.FileType;
+import be.helmo.natamobile.models.Observation;
+import be.helmo.natamobile.tools.Environment;
 import be.helmo.natamobile.view.interfaces.IIdentifyView;
 
 /**
@@ -29,10 +45,15 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 	private ImageView birdImage;
 	private IIdentifyController controller;
 
+	private StorageReference mStorageRef;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.identify);
+
+		mStorageRef = FirebaseStorage.getInstance(Environment.FIREBASE_INSTANCE).getReference();
+
 
 		Bundle extras = getIntent().getExtras();
 		birdImage = findViewById(R.id.identifyBirdImage);
@@ -81,5 +102,50 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 	private void askHelper() {
 		Intent identifyHelperIntent = new Intent(this, IdentifyHelperActivity.class);
 		startActivityForResult(identifyHelperIntent, REQUEST_HELPER);
+	}
+
+
+
+	@SuppressLint("MissingPermission") // All permissions asked before
+	private void upload(Uri uri, final String online) {
+		StorageReference fileRef = mStorageRef.child(online);
+
+		final Observation newObs = new Observation();
+		newObs.setDate(new Timestamp(new Date().getTime()));
+		newObs.setMediaPath(online);
+		newObs.setNumberOfBird(1);
+
+		FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+		mFusedLocationClient.getLastLocation()
+			  .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+				  @Override
+				  public void onSuccess(Location location) {
+					  if (location != null) {
+						  newObs.setLatitude(Double.toString(location.getLatitude()));
+						  newObs.setLongitude(Double.toString(location.getLongitude()));
+					  }
+				  }
+			  });
+
+		fileRef.putFile(uri)
+			  .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+				  @Override
+				  public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+					  // Get a URL to the uploaded content
+//                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//					  session.addObservation(newObs);
+					  displayToast("Upload done");
+				  }
+			  })
+			  .addOnFailureListener(new OnFailureListener() {
+				  @Override
+				  public void onFailure(@NonNull Exception exception) {
+					  // Handle unsuccessful uploads
+					  // ...
+					  displayToast("Upload failure");
+					  exception.printStackTrace();
+					  System.err.println(exception.getMessage());
+				  }
+			  });
 	}
 }

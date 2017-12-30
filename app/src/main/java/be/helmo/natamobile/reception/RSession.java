@@ -1,6 +1,8 @@
 package be.helmo.natamobile.reception;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,16 +13,23 @@ import be.helmo.natamobile.models.Session;
 public class RSession extends IdentifiedModel
 	  implements ReceptionObject<Session> {
 
+	@SerializedName("name")
 	private String name;
 
+	@SerializedName("dateStart")
 	private Timestamp dateStart;
+	@SerializedName("dateEnd")
 	private Timestamp dateEnd;
 
+	@SerializedName("latitude")
 	private String latitude;
+	@SerializedName("longitude")
 	private String longitude;
 
+	@SerializedName("observations")
 	private List<RObservation> observations;
 
+	@SerializedName("user")
 	private RUser user;
 
 	public RSession() {
@@ -34,6 +43,7 @@ public class RSession extends IdentifiedModel
 		this.latitude = ses.getLatitude();
 		this.longitude = ses.getLongitude();
 		this.observations = convertRObservations(ses.getObservations());
+		this.user = new RUser(ses.getUser());
 	}
 
 	private List<RObservation> convertRObservations(List<Observation> observations) {
