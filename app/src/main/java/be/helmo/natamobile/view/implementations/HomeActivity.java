@@ -1,7 +1,6 @@
 package be.helmo.natamobile.view.implementations;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -19,13 +18,10 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.List;
-
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.adapter.SessionListViewAdapter;
 import be.helmo.natamobile.controller.implementations.HomeController;
 import be.helmo.natamobile.controller.interfaces.IHomeController;
-import be.helmo.natamobile.models.Session;
 import be.helmo.natamobile.tools.Environment;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 
@@ -103,20 +99,20 @@ public class HomeActivity extends AbstractActivity implements IHomeView {
 		controller.startNewSession(0, 0);*/
 
 		//FOR REAL SMARTPHONE
-        FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        mFusedLocationClient.getLastLocation()
-            .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                @Override
-                public void onSuccess(Location location) {
-                    if (location != null) {
-                    SharedPreferences.Editor editor = sharedpreferences.edit();
-					editor.putString(Environment.CURRENT_SESSION_LAT, Double.toString(location.getLatitude()));
-					editor.putString(Environment.CURRENT_SESSION_LON, Double.toString(location.getLongitude()));
-					editor.apply();
-                        controller.startNewSession(location.getLongitude(), location.getLatitude());
-                    }
-                }
-            });
+		FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+		mFusedLocationClient.getLastLocation()
+			  .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+				  @Override
+				  public void onSuccess(Location location) {
+					  if (location != null) {
+						  SharedPreferences.Editor editor = sharedpreferences.edit();
+						  editor.putString(Environment.CURRENT_SESSION_LAT, Double.toString(location.getLatitude()));
+						  editor.putString(Environment.CURRENT_SESSION_LON, Double.toString(location.getLongitude()));
+						  editor.apply();
+						  controller.startNewSession(location.getLongitude(), location.getLatitude());
+					  }
+				  }
+			  });
 
 	}
 

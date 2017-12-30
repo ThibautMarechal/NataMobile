@@ -51,6 +51,7 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.identify);
+		controller = new IdentifyController(this);
 
 		mStorageRef = FirebaseStorage.getInstance(Environment.FIREBASE_INSTANCE).getReference();
 
@@ -72,10 +73,8 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 				birdImage.setImageResource(R.drawable.no_media);
 				break;
 		}
-		birdsSpinner = findViewById(R.id.birdsSpinner);
-		controller = new IdentifyController();
-		ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, controller.getBirds());
-		birdsSpinner.setAdapter(adapter);
+
+		updateSpinnerBird();
 
 		numberBirdEditText = findViewById(R.id.numberBirdTextField);
 		numberBirdEditText.setText("1");
@@ -97,6 +96,14 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 				askHelper();
 			}
 		});
+	}
+
+	@Override
+	public void updateSpinnerBird() {
+		birdsSpinner = findViewById(R.id.birdsSpinner);
+		ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, controller.getBirds());
+		birdsSpinner.setAdapter(adapter);
+
 	}
 
 	private void askHelper() {
@@ -147,5 +154,7 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 					  System.err.println(exception.getMessage());
 				  }
 			  });
+
+
 	}
 }

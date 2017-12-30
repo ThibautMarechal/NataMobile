@@ -2,6 +2,7 @@ package be.helmo.natamobile.view.implementations;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import be.helmo.natamobile.R;
 import be.helmo.natamobile.adapter.ObservationListViewAdapter;
 import be.helmo.natamobile.controller.implementations.CurrentSessionController;
 import be.helmo.natamobile.controller.interfaces.ICurrentSessionController;
+import be.helmo.natamobile.models.FileType;
 import be.helmo.natamobile.models.Observation;
 import be.helmo.natamobile.models.Session;
 import be.helmo.natamobile.models.User;
@@ -47,7 +49,7 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 	private static final int REQUEST_VIDEO_CAPTURE = 2;
 	private static final int REQUEST_AUDIO_CAPTURE = 3;
 	private static final int REQUEST_IDENTIFY = 4;
-	private final ICurrentSessionController controller;
+	private ICurrentSessionController controller;
 	private ImageButton newPictureButton;
 	private ImageButton newVideoButton;
 	private ImageButton newAudioButton;
@@ -58,18 +60,15 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 
 	private StorageReference mStorageRef;
 
-	private Session session;
-
-	private Timestamp dateStart;
-
 	public CurrentSessionActivity() {
-		this.controller = new CurrentSessionController(this);
+
 	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		mStorageRef = FirebaseStorage.getInstance(be.helmo.natamobile.tools.Environment.FIREBASE_INSTANCE).getReference();
+		this.controller = new CurrentSessionController(this);
 
 		setContentView(R.layout.session_current);
 		//PICTURE
@@ -117,15 +116,6 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 				stopSession();
 			}
 		});
-
-		session = new Session();
-		session.setLatitude(getSharedLatitude());
-		session.setLongitude(getSharedLongitude());
-		session.setStart(dateStart = new Timestamp(new Date().getTime()));
-		User owner = new User();
-		owner.setId(getSharedId());
-		session.setUser(owner);
-		session.setObservations(new ArrayList<Observation>());
 	}
 
 	private void takeAudio() {
@@ -168,19 +158,21 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 			Uri photoUri = intent.getData();
 			if (photoUri != null) {
 				this.filePath = photoUri.toString();
-				upload(photoUri, "user-" + getSharedId()
-					  + "/session-" + dateStart.getTime()
-					  + "/photo-" + new Date().getTime() + ".jpg");
+
+				controller.newObservationPicture(photoUri,
+					  "user-" + getSharedId()
+							+ "/session-" + controller.getDateStart().getTime()
+							+ "/photo-" + new Date().getTime() + ".jpg");
 			}
 		} else if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
 			Uri videoUri = intent.getData();
 			if (videoUri != null) {
 				this.filePath = videoUri.toString();
 
-				//FORMAT "user-" + ID + "/session-" + TIMESTAMP + "/" + media_type + "-" + TIMESTAMP + "." + EXTENSION
-				upload(videoUri, "user-" + getSharedId()
-					  + "/session-" + dateStart.getTime()
-					  + "/video-" + new Date().getTime() + ".mp4");
+				controller.newObservationVideo(videoUri,
+					  "user-" + getSharedId()
+							+ "/session-" + controller.getDateStart().getTime()
+							+ "/video-" + new Date().getTime() + ".mp4");
 
 			}
 		} else if (requestCode == REQUEST_AUDIO_CAPTURE && resultCode == RESULT_OK) {
@@ -188,15 +180,13 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 			if (audioUri != null) {
 				this.filePath = audioUri.toString();
 
-				upload(audioUri, "user-" + getSharedId()
-					  + "/session-" + dateStart.getTime()
-					  + "/audio-" + new Date().getTime() + ".acc");
+				controller.newObservationAudio(audioUri,
+					  "user-" + getSharedId()
+							+ "/session-" + controller.getDateStart().getTime()
+							+ "/audio-" + new Date().getTime() + ".acc");
 			}
 		} else if (requestCode == REQUEST_IDENTIFY && resultCode == RESULT_OK) {
-			controller.newObservationPicture(this.filePath);
-			controller.newObservationVideo(this.filePath);
-			controller.newObservationAudio(this.filePath);
-			controller.newObservationNoMedia();
+
 		}
 	}
 
@@ -215,33 +205,33 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 	}
 
 	@SuppressLint("MissingPermission") // All permissions asked before
-	private void upload(Uri uri, final String online) {
-		StorageReference fileRef = mStorageRef.child(online);
-
-		final Observation newObs = new Observation();
-		newObs.setDate(new Timestamp(new Date().getTime()));
-		newObs.setMediaPath(online);
-		newObs.setNumberOfBird(1);
-
+	@Override
+	public void getLocation() {
 		FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 		mFusedLocationClient.getLastLocation()
 			  .addOnSuccessListener(this, new OnSuccessListener<Location>() {
 				  @Override
 				  public void onSuccess(Location location) {
 					  if (location != null) {
-						  newObs.setLatitude(Double.toString(location.getLatitude()));
-						  newObs.setLongitude(Double.toString(location.getLongitude()));
+
+						  SharedPreferences.Editor editor = sharedpreferences.edit();
+						  editor.putString(be.helmo.natamobile.tools.Environment.LAST_OBS_LAT, Double.toString(location.getLatitude()));
+						  editor.putString(be.helmo.natamobile.tools.Environment.LAST_OBS_LON, Double.toString(location.getLongitude()));
+						  editor.apply();
 					  }
 				  }
 			  });
+	}
 
+	@Override
+	public void upload(final Uri uri, final String online) {
+		final StorageReference fileRef = mStorageRef.child(online);
 		fileRef.putFile(uri)
 			  .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 				  @Override
 				  public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 					  // Get a URL to the uploaded content
 //                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-					  session.addObservation(newObs);
 					  displayToast("Upload done");
 				  }
 			  })
@@ -255,6 +245,7 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 					  System.err.println(exception.getMessage());
 				  }
 			  });
+
 	}
 
 	@Override
@@ -272,10 +263,6 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 	}
 
 	public void stopSession() {
-		session.setEnd(new Timestamp(new Date().getTime()));
-		session.setName("Test-" + new Timestamp(new Date().getTime()));
-		controller.saveSession(session);
+		controller.saveSession();
 	}
-
-
 }

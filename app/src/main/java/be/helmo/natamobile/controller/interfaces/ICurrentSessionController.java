@@ -1,7 +1,11 @@
 package be.helmo.natamobile.controller.interfaces;
 
+import android.net.Uri;
+
+import java.util.Date;
 import java.util.List;
 
+import be.helmo.natamobile.models.FileType;
 import be.helmo.natamobile.models.Observation;
 import be.helmo.natamobile.models.Session;
 
@@ -10,15 +14,19 @@ import be.helmo.natamobile.models.Session;
  */
 
 public interface ICurrentSessionController extends IBaseController {
-	void newObservationPicture(String filePath);
+	void newObservationPicture(Uri filePath, String onlinePath);
 
-	void newObservationVideo(String filePath);
+	void newObservationVideo(Uri filePath, String onlinePath);
 
-	void newObservationAudio(String filePath);
+	void newObservationAudio(Uri filePath, String onlinePath);
 
 	void newObservationNoMedia();
 
 	List<Observation> getObservations();
 
-	void saveSession(Session session);
+	void saveSession();
+
+	Observation defineObservation(Uri uri, FileType type, String onlinePath);
+
+	Date getDateStart();
 }
