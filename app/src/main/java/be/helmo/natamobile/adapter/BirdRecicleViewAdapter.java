@@ -10,10 +10,6 @@ import java.util.List;
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.models.Bird;
 
-/**
- * Created by Maréchal Thibaut on 27/12/2017.
- */
-
 public class BirdRecicleViewAdapter extends RecyclerView.Adapter<BirdViewHolder> {
 	List<Bird> list;
 

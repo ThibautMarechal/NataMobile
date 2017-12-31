@@ -8,10 +8,6 @@ import java.util.List;
 import be.helmo.natamobile.models.FileType;
 import be.helmo.natamobile.models.Observation;
 
-/**
- * Created by marechthib on 20/12/2017.
- */
-
 public interface ICurrentSessionController extends IBaseController {
 	void newObservationPicture(Uri filePath, String onlinePath);
 
@@ -27,7 +23,9 @@ public interface ICurrentSessionController extends IBaseController {
 
 	void defineObservation(Uri uri, FileType type, String onlinePath);
 
-	void finishDefineObservation(long idBird, int numberObs);
+	void finishDefineObservation(long idBird, int numberObs, String name);
+
+	void aboardLastObservation();
 
 	Date getDateStart();
 }

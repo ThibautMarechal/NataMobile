@@ -30,11 +30,9 @@ public class IdentifyHelperActivity extends AbstractActivity implements IIdentif
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.identify_helper);
-		controller = new IdentifyHelperController();
+		controller = new IdentifyHelperController(this);
 
-		attributeListView = findViewById(R.id.attributeHelperListView);
-		AttributeListViewAdapter adapter = new AttributeListViewAdapter(this, controller.getAttributes());
-		attributeListView.setAdapter(adapter);
+		updateAttributes();
 
 		searchButton = findViewById(R.id.identify_helper_search_button);
 		searchButton.setOnClickListener(new View.OnClickListener() {
@@ -59,10 +57,20 @@ public class IdentifyHelperActivity extends AbstractActivity implements IIdentif
 		startActivityForResult(birdIdentifier, REQUEST_BIRD_IDENTIFY);
 	}
 
-	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (requestCode == REQUEST_BIRD_IDENTIFY && resultCode == RESULT_OK) {
 			//READ BIRD NAME FROM EXTRA
 			//GO BACK TO PREVIOUS INTENT WITH BIRD NAME IN EXTRA
+			setResult(RESULT_OK, intent);
+			finish();
 		}
+	}
+
+	@Override
+	public void updateAttributes() {
+		attributeListView = findViewById(R.id.attributeHelperListView);
+		AttributeListViewAdapter adapter = new AttributeListViewAdapter(this, controller.getAttributes());
+		attributeListView.setAdapter(adapter);
 	}
 }

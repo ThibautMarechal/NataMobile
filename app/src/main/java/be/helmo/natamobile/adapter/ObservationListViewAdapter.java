@@ -42,7 +42,7 @@ public class ObservationListViewAdapter extends ArrayAdapter<Observation> {
 		if (values.get(position).getBird() != null) {
 			birdName.setText(values.get(position).getBird().getName());
 		}
-		birdName.setText(R.string.not_identified);
+		birdName.setText(String.valueOf(values.get(position).getBird().getName()));
 
 
 		TextView obsNumBird = rowView.findViewById(R.id.list_obs_number_bird);

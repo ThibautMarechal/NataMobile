@@ -17,10 +17,6 @@ import be.helmo.natamobile.controller.interfaces.IIdentifyBirdController;
 import be.helmo.natamobile.models.Bird;
 import be.helmo.natamobile.view.interfaces.IIdentifyBirdView;
 
-/**
- * Created by Maréchal Thibaut on 27/12/2017.
- */
-
 public class IdentifyBirdActivity extends AbstractActivity implements IIdentifyBirdView {
 	private IIdentifyBirdController controller;
 	private RecyclerView recyclerViewBirdList;
@@ -52,9 +48,10 @@ public class IdentifyBirdActivity extends AbstractActivity implements IIdentifyB
 	}
 
 	private void birdSelected(int position) {
-		Bird selectedbird = controller.getPossibleBirds().get(position);
+		Bird selectedBird = controller.getPossibleBirds().get(position);
 		Intent data = new Intent();
-		data.putExtra("BirdName", selectedbird.getName());
+		data.putExtra("idBird", selectedBird.getId());
+		data.putExtra("nameBird", selectedBird.getName());
 		setResult(RESULT_OK, data);
 		finish();
 	}

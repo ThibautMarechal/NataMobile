@@ -1,11 +1,8 @@
 package be.helmo.natamobile.view.implementations;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -13,22 +10,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.sql.Timestamp;
-import java.util.Date;
 
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.controller.implementations.IdentifyController;
 import be.helmo.natamobile.controller.interfaces.IIdentifyController;
 import be.helmo.natamobile.models.FileType;
-import be.helmo.natamobile.models.Observation;
 import be.helmo.natamobile.tools.Environment;
 import be.helmo.natamobile.view.interfaces.IIdentifyView;
 
@@ -82,12 +70,10 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 		saveButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent returnIntent = new Intent();
-				returnIntent.putExtra("idBird", controller.getBirdIdByName(
-					  birdsSpinner.getSelectedItem().toString()));
-				returnIntent.putExtra("nbrObs", Integer.parseInt(numberBirdEditText.getText().toString()));
-				setResult(RESULT_OK, returnIntent);
-				finish();
+				finishActivity(
+					  controller.getBirdIdByName(birdsSpinner.getSelectedItem().toString()),
+					  Integer.parseInt(numberBirdEditText.getText().toString()),
+					  birdsSpinner.getSelectedItem().toString());
 			}
 		});
 		identifyHelperButton = findViewById(R.id.identifyHelperButton);
@@ -112,49 +98,22 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 		startActivityForResult(identifyHelperIntent, REQUEST_HELPER);
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
 
-	@SuppressLint("MissingPermission") // All permissions asked before
-	private void upload(Uri uri, final String online) {
-		StorageReference fileRef = mStorageRef.child(online);
+		finishActivity(
+			  data.getLongExtra("idBird", 0),
+			  data.getIntExtra("nbrObs", 1),
+			  data.getStringExtra("nameBird"));
+	}
 
-		final Observation newObs = new Observation();
-		newObs.setDate(new Timestamp(new Date().getTime()));
-		newObs.setMediaPath(online);
-		newObs.setNumberOfBird(1);
-
-		FusedLocationProviderClient mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-		mFusedLocationClient.getLastLocation()
-			  .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-				  @Override
-				  public void onSuccess(Location location) {
-					  if (location != null) {
-						  newObs.setLatitude(Double.toString(location.getLatitude()));
-						  newObs.setLongitude(Double.toString(location.getLongitude()));
-					  }
-				  }
-			  });
-
-		fileRef.putFile(uri)
-			  .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-				  @Override
-				  public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-					  // Get a URL to the uploaded content
-//                        Uri downloadUrl = taskSnapshot.getDownloadUrl();
-//					  session.addObservation(newObs);
-					  displayToast("Upload done");
-				  }
-			  })
-			  .addOnFailureListener(new OnFailureListener() {
-				  @Override
-				  public void onFailure(@NonNull Exception exception) {
-					  // Handle unsuccessful uploads
-					  // ...
-					  displayToast("Upload failure");
-					  exception.printStackTrace();
-					  System.err.println(exception.getMessage());
-				  }
-			  });
-
-
+	private void finishActivity(Long id, int nbr, String nameBird) {
+		Intent returnIntent = new Intent();
+		returnIntent.putExtra("idBird", id);
+		returnIntent.putExtra("nbrObs", nbr);
+		returnIntent.putExtra("nameBird", nameBird);
+		setResult(RESULT_OK, returnIntent);
+		finish();
 	}
 }
