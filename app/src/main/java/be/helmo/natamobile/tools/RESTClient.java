@@ -42,8 +42,7 @@ public class RESTClient {
 
 		if (client == null) {
 			rtn = new Retrofit.Builder()
-				  .baseUrl("http://192.168.1.22:8080/")
-//				  .baseUrl("http://192.168.128.13:8081/GRIMAR-1.0/")
+				  .baseUrl("http://192.168.128.13:8081/GRIMAR-1.0/")
 				  .client(okHttpClient)
 				  .addConverterFactory(GsonConverterFactory.create(gson))
 				  .build();

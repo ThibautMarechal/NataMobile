@@ -147,7 +147,7 @@ public class CurrentSessionController implements ICurrentSessionController {
 	@Override
 	public void saveSession() {
 		session.setEnd(new Timestamp(new Date().getTime()));
-		session.setName("Test-" + new Timestamp(new Date().getTime()));
+		session.setName("Session-" + new Timestamp(new Date().getTime()));
 		session.setObservations(observations);
 		String credentials = Credentials.basic(view.getSharedEmail(), view.getSharedPassword());
 

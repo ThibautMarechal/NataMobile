@@ -146,15 +146,10 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-			Uri photoUri = intent.getData();
-			if (photoUri != null) {
-				this.filePath = photoUri.toString();
-
-				controller.newObservationPicture(photoUri,
-					  "user-" + getSharedId()
-							+ "/session-" + controller.getDateStart().getTime()
-							+ "/photo-" + new Date().getTime() + ".jpg");
-			}
+			controller.newObservationPicture(Uri.parse(this.filePath),
+				  "user-" + getSharedId()
+						+ "/session-" + controller.getDateStart().getTime()
+						+ "/photo-" + new Date().getTime() + ".jpg");
 		} else if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
 			Uri videoUri = intent.getData();
 			if (videoUri != null) {
