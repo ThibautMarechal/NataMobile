@@ -20,11 +20,13 @@ public interface ICurrentSessionView extends IView {
 	void getLocation();
 
 	String getSharedLatitude();
+
 	String getSharedLongitude();
 
 	long getSharedId();
 
 	String getSharedLastObsLat();
+
 	String getSharedLastObsLon();
 
 	void upload(Uri uri, String online);

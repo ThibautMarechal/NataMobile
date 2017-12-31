@@ -39,7 +39,7 @@ public class RObservation extends IdentifiedModel
 		this.nbrObs = obs.getNumberOfBird();
 		this.validation = obs.isValid();
 		this.onlinePath = obs.getMediaPath();
-		this.birdId = (obs.getBird() != null) ? obs.getBird().getId() : 0;
+		this.birdId = obs.getIdBird();
 		this.bird = (obs.getBird() != null) ? new RBird(obs.getBird()) : null;
 		this.mediaType = rMediaType;
 	}
@@ -54,6 +54,7 @@ public class RObservation extends IdentifiedModel
 		rtn.setNumberOfBird(this.nbrObs);
 		rtn.setValid(this.validation);
 		rtn.setMediaPath(this.onlinePath);
+		rtn.setIdBird(this.birdId);
 		rtn.setBird(
 			  (bird != null)
 					? bird.getModel()

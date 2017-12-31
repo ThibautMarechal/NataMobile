@@ -81,6 +81,7 @@ public abstract class AbstractActivity extends AppCompatActivity implements IVie
 	public String getSharedLastObsLat() {
 		return sharedpreferences.getString(Environment.LAST_OBS_LAT, "0");
 	}
+
 	public String getSharedLastObsLon() {
 		return sharedpreferences.getString(Environment.LAST_OBS_LON, "0");
 	}

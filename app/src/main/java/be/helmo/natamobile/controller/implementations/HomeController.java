@@ -14,8 +14,6 @@ import be.helmo.natamobile.models.Session;
 import be.helmo.natamobile.models.User;
 import be.helmo.natamobile.restAdapter.SessionAdapter;
 import be.helmo.natamobile.restAdapter.UserAdapter;
-import be.helmo.natamobile.tools.Environment;
-import be.helmo.natamobile.view.implementations.HomeActivity;
 import be.helmo.natamobile.view.implementations.ViewEnum;
 import be.helmo.natamobile.view.interfaces.IHomeView;
 import okhttp3.Credentials;

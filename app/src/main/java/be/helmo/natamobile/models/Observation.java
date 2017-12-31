@@ -17,6 +17,7 @@ public class Observation extends IdentifiedModel {
 	private boolean isValid;
 	private String mediaType;
 	private String mediaPath;
+	private long idBird;
 
 	public int getNumberOfBird() {
 		return numberOfBird;
@@ -97,4 +98,14 @@ public class Observation extends IdentifiedModel {
 	public void setMediaPath(String mediaPath) {
 		this.mediaPath = mediaPath;
 	}
+
+	public long getIdBird() {
+		return idBird;
+	}
+
+	public void setIdBird(long idBird) {
+		this.idBird = idBird;
+	}
+
+
 }

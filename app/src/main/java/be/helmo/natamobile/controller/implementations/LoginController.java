@@ -6,7 +6,6 @@ import android.os.Message;
 
 import be.helmo.natamobile.controller.interfaces.ILoginController;
 import be.helmo.natamobile.models.User;
-import be.helmo.natamobile.restAdapter.RestCallBack;
 import be.helmo.natamobile.restAdapter.UserAdapter;
 import be.helmo.natamobile.view.implementations.ViewEnum;
 import be.helmo.natamobile.view.interfaces.ILoginView;

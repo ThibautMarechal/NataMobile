@@ -33,6 +33,15 @@ public class IdentifyController implements IIdentifyController {
 	}
 
 	@Override
+	public long getBirdIdByName(String name) {
+		long rtn = 0;
+		for (Bird bird : birds)
+			if (bird.getName().equals(name))
+				rtn = bird.getId();
+		return rtn;
+	}
+
+	@Override
 	public void onCreate() {
 
 	}

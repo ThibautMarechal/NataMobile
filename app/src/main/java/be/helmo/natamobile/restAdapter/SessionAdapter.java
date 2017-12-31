@@ -1,7 +1,5 @@
 package be.helmo.natamobile.restAdapter;
 
-import android.os.AsyncTask;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

@@ -8,5 +8,6 @@ import be.helmo.natamobile.models.User;
 
 public interface ILoginController extends IBaseController {
 	void connect();
+
 	User getLoggedUser();
 }

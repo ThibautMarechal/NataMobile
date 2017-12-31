@@ -83,8 +83,9 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 			@Override
 			public void onClick(View v) {
 				Intent returnIntent = new Intent();
-				returnIntent.putExtra("birdName", birdsSpinner.getSelectedItem().toString());
-				returnIntent.putExtra("birdNumber", Integer.parseInt(numberBirdEditText.getText().toString()));
+				returnIntent.putExtra("idBird", controller.getBirdIdByName(
+					  birdsSpinner.getSelectedItem().toString()));
+				returnIntent.putExtra("nbrObs", Integer.parseInt(numberBirdEditText.getText().toString()));
 				setResult(RESULT_OK, returnIntent);
 				finish();
 			}
@@ -110,7 +111,6 @@ public class IdentifyActivity extends AbstractActivity implements IIdentifyView 
 		Intent identifyHelperIntent = new Intent(this, IdentifyHelperActivity.class);
 		startActivityForResult(identifyHelperIntent, REQUEST_HELPER);
 	}
-
 
 
 	@SuppressLint("MissingPermission") // All permissions asked before

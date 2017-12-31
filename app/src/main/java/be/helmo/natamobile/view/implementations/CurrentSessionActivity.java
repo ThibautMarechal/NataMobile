@@ -25,19 +25,14 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.adapter.ObservationListViewAdapter;
 import be.helmo.natamobile.controller.implementations.CurrentSessionController;
 import be.helmo.natamobile.controller.interfaces.ICurrentSessionController;
-import be.helmo.natamobile.models.FileType;
 import be.helmo.natamobile.models.Observation;
-import be.helmo.natamobile.models.Session;
-import be.helmo.natamobile.models.User;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 
 /**
@@ -186,7 +181,10 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 							+ "/audio-" + new Date().getTime() + ".acc");
 			}
 		} else if (requestCode == REQUEST_IDENTIFY && resultCode == RESULT_OK) {
+			long idBird = intent.getLongExtra("idBird", 0);
+			int nbrObs = intent.getIntExtra("nbrObs", 1);
 
+			controller.finishDefineObservation(idBird, nbrObs);
 		}
 	}
 

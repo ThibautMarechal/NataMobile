@@ -39,6 +39,8 @@ public class CurrentSessionController implements ICurrentSessionController {
 
 	private Session session;
 
+	private Observation lastObs;
+
 	public CurrentSessionController(ICurrentSessionView currentSessionView) {
 		this.view = currentSessionView;
 		observations = new ArrayList<>();
@@ -56,22 +58,22 @@ public class CurrentSessionController implements ICurrentSessionController {
 
 	@Override
 	public void newObservationPicture(Uri filePath, String onlinePath) {
-		observations.add(defineObservation(filePath, FileType.PICTURE, onlinePath));
+		defineObservation(filePath, FileType.PICTURE, onlinePath);
 	}
 
 	@Override
 	public void newObservationVideo(Uri filePath, String onlinePath) {
-		observations.add(defineObservation(filePath, FileType.VIDEO, onlinePath));
+		defineObservation(filePath, FileType.VIDEO, onlinePath);
 	}
 
 	@Override
 	public void newObservationAudio(Uri filePath, String onlinePath) {
-		observations.add(defineObservation(filePath, FileType.AUDIO, onlinePath));
+		defineObservation(filePath, FileType.AUDIO, onlinePath);
 	}
 
 	@Override
 	public void newObservationNoMedia() {
-		observations.add(defineObservation(null, FileType.NoMedia, null));
+		defineObservation(null, FileType.NoMedia, null);
 	}
 
 	@Override
@@ -101,19 +103,19 @@ public class CurrentSessionController implements ICurrentSessionController {
 
 
 	@Override
-	public Observation defineObservation(final Uri uri, FileType type, final String onlinePath) {
-		final Observation newObs = new Observation();
-		newObs.setDate(new Timestamp(new Date().getTime()));
-		newObs.setFileType(type);
-		newObs.setValid(true);
+	public void defineObservation(final Uri uri, FileType type, final String onlinePath) {
+		lastObs = new Observation();
+		lastObs.setDate(new Timestamp(new Date().getTime()));
+		lastObs.setFileType(type);
+		lastObs.setValid(true);
 
 		view.getLocation(); //TODO LONG ET LAT NOT OK
-		newObs.setLatitude(view.getSharedLastObsLat());
-		newObs.setLongitude(view.getSharedLastObsLon());
+		lastObs.setLatitude(view.getSharedLastObsLat());
+		lastObs.setLongitude(view.getSharedLastObsLon());
 
 		if (type != FileType.NoMedia) {
-			newObs.setFilePath(uri.toString());
-			newObs.setMediaPath(onlinePath);
+			lastObs.setFilePath(uri.toString());
+			lastObs.setMediaPath(onlinePath);
 
 			new Thread(new Runnable() {
 				@Override
@@ -123,11 +125,17 @@ public class CurrentSessionController implements ICurrentSessionController {
 			}).start();
 		}
 
-		//TODO Define ID Bird and nbr
-		view.identifyBird(newObs);
-		newObs.setNumberOfBird(1);
+		observations.add(lastObs);
+		view.identifyBird(lastObs);
+	}
 
-		return newObs;
+	@Override
+	public void finishDefineObservation(long idBird, int numberObs) {
+		//TODO Define ID Bird and nbr
+		lastObs.setNumberOfBird(numberObs);
+		lastObs.setIdBird(idBird);
+
+		session.addObservation(lastObs);
 	}
 
 	@Override
