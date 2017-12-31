@@ -2,10 +2,6 @@ package be.helmo.natamobile.models;
 
 import java.util.List;
 
-/**
- * Created by Maréchal Thibaut on 26/12/2017.
- */
-
 public class Attribute extends IdentifiedModel {
 	private String key;
 	private List<String> values;

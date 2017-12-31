@@ -13,10 +13,6 @@ import be.helmo.natamobile.restAdapter.AttributeAdapter;
 import be.helmo.natamobile.view.interfaces.IIdentifyHelperView;
 import okhttp3.Credentials;
 
-/**
- * Created by Maréchal Thibaut on 26/12/2017.
- */
-
 public class IdentifyHelperController implements IIdentifyHelperController {
 	private IIdentifyHelperView view;
 

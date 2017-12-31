@@ -20,10 +20,6 @@ import be.helmo.natamobile.models.FileType;
 import be.helmo.natamobile.tools.Environment;
 import be.helmo.natamobile.view.interfaces.IIdentifyView;
 
-/**
- * Created by Maréchal Thibaut on 26/12/2017.
- */
-
 public class IdentifyActivity extends AbstractActivity implements IIdentifyView {
 	private static final int REQUEST_HELPER = 1;
 	private Spinner birdsSpinner;

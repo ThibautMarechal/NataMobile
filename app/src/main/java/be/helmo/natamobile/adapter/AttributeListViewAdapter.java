@@ -13,10 +13,6 @@ import java.util.List;
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.models.Attribute;
 
-/**
- * Created by Maréchal Thibaut on 26/12/2017.
- */
-
 public class AttributeListViewAdapter extends ArrayAdapter<Attribute> {
 
 	private final List<Attribute> values;
