@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 
 import be.helmo.natamobile.controller.interfaces.ICurrentSessionController;
+import be.helmo.natamobile.models.Bird;
 import be.helmo.natamobile.models.FileType;
 import be.helmo.natamobile.models.Observation;
 import be.helmo.natamobile.models.Session;
@@ -23,10 +24,6 @@ import be.helmo.natamobile.restAdapter.SessionAdapter;
 import be.helmo.natamobile.view.implementations.ViewEnum;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 import okhttp3.Credentials;
-
-/**
- * Created by marechthib on 20/12/2017.
- */
 
 public class CurrentSessionController implements ICurrentSessionController {
 	private final ICurrentSessionView view;
@@ -125,23 +122,32 @@ public class CurrentSessionController implements ICurrentSessionController {
 			}).start();
 		}
 
-		observations.add(lastObs);
 		view.identifyBird(lastObs);
 	}
 
 	@Override
-	public void finishDefineObservation(long idBird, int numberObs) {
+	public void finishDefineObservation(long idBird, int numberObs, String name) {
 		//TODO Define ID Bird and nbr
 		lastObs.setNumberOfBird(numberObs);
 		lastObs.setIdBird(idBird);
 
+		Bird bird = new Bird();
+		bird.setName(name);
+		lastObs.setBird(bird);
+		observations.add(lastObs);
 		session.addObservation(lastObs);
+		view.updateObservationList();
+	}
+
+	@Override
+	public void aboardLastObservation() {
+		lastObs = null;
 	}
 
 	@Override
 	public void saveSession() {
 		session.setEnd(new Timestamp(new Date().getTime()));
-		session.setName("Test-" + new Timestamp(new Date().getTime()));
+		session.setName("Session-" + new Timestamp(new Date().getTime()));
 		session.setObservations(observations);
 		String credentials = Credentials.basic(view.getSharedEmail(), view.getSharedPassword());
 

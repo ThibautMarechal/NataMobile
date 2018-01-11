@@ -76,8 +76,6 @@ public class IdentifyController implements IIdentifyController {
 			@Override
 			public void handleMessage(Message message) {
 				if (message.obj != null) {
-//					view.updateUserUI();
-//					view.updateSessionList();
 					view.updateSpinnerBird();
 				} else {
 					view.displayToast("Something Happened");

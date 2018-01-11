@@ -1,9 +1,5 @@
 package be.helmo.natamobile.adapter;
 
-/**
- * Created by Maréchal Thibaut on 28/12/2017.
- */
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;

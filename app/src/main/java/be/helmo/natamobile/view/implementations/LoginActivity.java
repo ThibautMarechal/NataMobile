@@ -41,7 +41,7 @@ public class LoginActivity extends AbstractActivity implements ILoginView {
 		signinButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://www.stackoverflow.com/" /*TODO URL WEB SITE*/));
+				Intent viewIntent = new Intent("android.intent.action.VIEW", Uri.parse("http://192.168.128.13:8081/NataWeb-0.1/user/signin"));
 				startActivity(viewIntent);
 			}
 		});
@@ -52,9 +52,6 @@ public class LoginActivity extends AbstractActivity implements ILoginView {
 				displayToast("Facebook connection not implemented now");
 			}
 		});
-
-		emailEditText.setText("user@nat.be");
-		passwordEditText.setText("useruser");
 	}
 
 	@Override

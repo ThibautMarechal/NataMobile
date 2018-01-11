@@ -10,10 +10,6 @@ import com.squareup.picasso.Picasso;
 import be.helmo.natamobile.R;
 import be.helmo.natamobile.models.Bird;
 
-/**
- * Created by Maréchal Thibaut on 27/12/2017.
- */
-
 public class BirdViewHolder extends RecyclerView.ViewHolder {
 
 	private TextView textViewView;

@@ -9,10 +9,6 @@ import be.helmo.natamobile.tools.RESTClient;
 import retrofit2.Call;
 import retrofit2.Response;
 
-/**
- * Created by Maréchal Thibaut on 28/12/2017.
- */
-
 public class UserAdapter {
 
 	private UserService service;

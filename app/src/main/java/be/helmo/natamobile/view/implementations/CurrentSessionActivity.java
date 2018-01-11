@@ -35,10 +35,6 @@ import be.helmo.natamobile.controller.interfaces.ICurrentSessionController;
 import be.helmo.natamobile.models.Observation;
 import be.helmo.natamobile.view.interfaces.ICurrentSessionView;
 
-/**
- * Created by marechthib on 20/12/2017.
- */
-
 public class CurrentSessionActivity extends AbstractActivity implements ICurrentSessionView {
 	private static final int REQUEST_IMAGE_CAPTURE = 1;
 	private static final int REQUEST_VIDEO_CAPTURE = 2;
@@ -150,15 +146,10 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-			Uri photoUri = intent.getData();
-			if (photoUri != null) {
-				this.filePath = photoUri.toString();
-
-				controller.newObservationPicture(photoUri,
-					  "user-" + getSharedId()
-							+ "/session-" + controller.getDateStart().getTime()
-							+ "/photo-" + new Date().getTime() + ".jpg");
-			}
+			controller.newObservationPicture(Uri.parse(this.filePath),
+				  "user-" + getSharedId()
+						+ "/session-" + controller.getDateStart().getTime()
+						+ "/photo-" + new Date().getTime() + ".jpg");
 		} else if (requestCode == REQUEST_VIDEO_CAPTURE && resultCode == RESULT_OK) {
 			Uri videoUri = intent.getData();
 			if (videoUri != null) {
@@ -182,9 +173,11 @@ public class CurrentSessionActivity extends AbstractActivity implements ICurrent
 			}
 		} else if (requestCode == REQUEST_IDENTIFY && resultCode == RESULT_OK) {
 			long idBird = intent.getLongExtra("idBird", 0);
-			int nbrObs = intent.getIntExtra("nbrObs", 1);
+			int nbrObs = intent.getIntExtra("nbrObs", -1);
+			String name = intent.getStringExtra("nameBird");
 
-			controller.finishDefineObservation(idBird, nbrObs);
+			if(nbrObs == -1) controller.aboardLastObservation();
+			else controller.finishDefineObservation(idBird, nbrObs, name);
 		}
 	}
 

@@ -1,8 +1,14 @@
 package be.helmo.natamobile.service;
 
-/**
- * Created by Maréchal Thibaut on 26/12/2017.
- */
+import java.util.List;
 
-public class AttributeService {
+import be.helmo.natamobile.reception.RAttribute;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+
+public interface AttributeService {
+
+	@GET("attributes")
+	Call<List<RAttribute>> getAll(@Header("Authorization") String credentials);
 }
